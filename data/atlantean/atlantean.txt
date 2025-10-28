@@ -183,14 +183,6 @@ outfit "Solana Validator Sync Token"
         "outfit space" 0
         "energy consumption" .05
         description "A cryptographic signature proving your Solana bridge uplink has completed a validator handshake. The token stores the latest block height and shard attestation so the Atlantean forge knows your ledger is mirrored on-chain."
-	category "Systems"
-	series "Atlantean Metaverse"
-	cost 0
-	thumbnail "outfit/unknown artifact"
-	"mass" 0
-	"outfit space" 0
-	"energy consumption" 0
-	description "A secured cache of AquaTokens, the Atlantean crypto currency used to buy fireteam gear inside the metaverse exchange. Possessing one proves you've conquered sanctioned strike simulations."
 
 outfit "Atlantean Vanguard License"
 	category "Licenses"
