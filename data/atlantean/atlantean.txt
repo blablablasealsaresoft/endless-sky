@@ -183,6 +183,14 @@ outfit "Solana Validator Sync Token"
         "outfit space" 0
         "energy consumption" .05
         description "A cryptographic signature proving your Solana bridge uplink has completed a validator handshake. The token stores the latest block height and shard attestation so the Atlantean forge knows your ledger is mirrored on-chain."
+	category "Systems"
+	series "Atlantean Metaverse"
+	cost 0
+	thumbnail "outfit/unknown artifact"
+	"mass" 0
+	"outfit space" 0
+	"energy consumption" 0
+	description "A secured cache of AquaTokens, the Atlantean crypto currency used to buy fireteam gear inside the metaverse exchange. Possessing one proves you've conquered sanctioned strike simulations."
 
 outfit "Atlantean Vanguard License"
 	category "Licenses"
@@ -621,6 +629,28 @@ outfit "Solana Bridge Uplink"
         series "Atlantean Metaverse"
         licenses
                 Atlantean Metaverse Exchange
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "Clearance granted after completing the validator sync that links the Atlantean ledger to Solana mirrors. It authorizes the installation of bridge uplinks and cross-metaverse cash outs."
+
+outfit "Atlantean Vanguard Rank II License"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "A rank crest emblazoned on your Vanguard dossier after passing the Veteran ascension trial. It signals eligibility for Mythic fusion rifles, arena thrusters, and other Rank II fireteam gear."
+
+outfit "Atlantean Vanguard Rank III License"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "The Sovereignty's highest strike accreditation, awarded to pilots who complete the Mythic ascension rite. It unlocks bastion bulwarks and other apex-grade Atlantean technology."
+
+outfit "Solana Bridge Uplink"
+	category "Systems"
+	series "Atlantean Metaverse"
+	licenses
+		Atlantean Metaverse Exchange
 		Atlantean Solana Bridge
 	cost 0
 	thumbnail "outfit/small core"
@@ -758,6 +788,13 @@ outfitter "Atlantean Auction Rotation: Beta"
 outfitter "Atlantean Auction Rotation: Gamma"
         "Atlantean Relic: Torrent Cannon"
         "Atlantean Talent: Liminal Slipstream"
+	"Atlantean Mythic Fusion Rifle"
+	"Atlantean Bastion Bulwark"
+	"Atlantean Arena Thruster"
+	"Atlantean Sovereign Rail"
+	"Atlantean Chorus Harness"
+	"Atlantean Liminal Drive"
+	"Solana Bridge Uplink"
 
 outfit "Atlantean Sovereign Rail"
 	category "Guns"
@@ -936,6 +973,20 @@ ship "Falcon" "Falcon (Atlantean Chorus Marshal)"
                 "Greyhound Plasma Thruster"
                 "Impala Plasma Steering"
                 "Jump Drive"
+	outfits
+		"Atlantean Sovereign Rail"
+		"Atlantean Pulse Carbine"
+		"Atlantean Chorus Harness"
+		"Atlantean Echo Capacitor"
+		"Atlantean Liminal Drive"
+		"AquaToken Ledger"
+		"LP288a Battery Pack"
+		"Huskarl Shield Generator"
+		"Large Radar Jammer"
+
+		"Greyhound Plasma Thruster"
+		"Impala Plasma Steering"
+		"Jump Drive"
 
 
 fleet "Atlantean Fireteam"
@@ -1005,6 +1056,16 @@ fleet "Atlantean Leviathan Cohort"
         variant 1
                 "Falcon (Atlantean Bastion Marshal)"
                 "Falcon (Atlantean Chorus Marshal)"
+	government "Atlantean War Games"
+	names "atlantean"
+	personality heroic fearless target
+	strength 1100
+	variant 1
+		"Falcon (Atlantean Strider)"
+		"Falcon (Atlantean Chorus Anchor)"
+	variant 1
+		"Falcon (Atlantean Strider)"
+		"Hawk (Atlantean Vanguard Support)"
 
 phrase "atlantean"
 	word
@@ -1326,6 +1387,15 @@ mission "Atlantean Auction House Activation"
                 has "Atlantean Prologue: Crypto Forge: done"
                 not "Atlantean Auction House Access: done"
         on offer
+	name "Unlock the Atlantean Auction House"
+	description "Authorize the metaverse auction house so Vanguard pilots can bid on mythic gear drops."
+	landing
+	priority
+	source "Earth"
+	to offer
+		has "Atlantean Prologue: Crypto Forge: done"
+		not "Atlantean Auction House Access: done"
+	on offer
 		conversation
 			`Broker-oracles beckon you into a chamber of cascading loot tables. "Authorize the auction daemon," they intone. "Let Vanguards spend ledgers and credits on rotating drops."`
 			choice
@@ -1690,6 +1760,16 @@ mission "Atlantean Ascension: Veteran Trial"
         description "Present your combat telemetry and AquaToken proof to earn Atlantean Vanguard Rank II."
         landing
         source "Earth"
+		"Atlantean XP" ++
+		set "Atlantean Auction House Access: done"
+		event "Atlantean Auction House Online"
+		log "Campaigns" "Leviathan Protocol" `Authorized the Atlantean auction house, unlocking rotating premium outfits for ranked pilots."
+
+mission "Atlantean Ascension: Veteran Trial"
+	name "Ascension Trial: Veteran Rank"
+	description "Present your combat telemetry and AquaToken proof to earn Atlantean Vanguard Rank II."
+	landing
+	source "Earth"
 	to offer
 		has "Atlantean Rank: Initiate"
 		not "Atlantean Rank: Veteran"
@@ -2124,6 +2204,8 @@ mission "Solana Mirror: Heartbeat Ping"
 
 mission "Atlantean Arena: Control Uplink"
         name "Arena Control: Mars"
+mission "Atlantean Arena: Control Uplink"
+	name "Arena Control: Mars"
 	description "Queue into the Mars control arena, eliminate the opposing cell, and return to Earth for payout."
 	job
 	repeat
@@ -2271,4 +2353,6 @@ event "Atlantean Auction Depth Pulse"
                 add outfitter "Atlantean Auction Rotation: Beta"
         planet Callisto
                 add outfitter "Atlantean Auction Rotation: Gamma"
+	planet Earth
+		add outfitter "Atlantean Auction House"
 
