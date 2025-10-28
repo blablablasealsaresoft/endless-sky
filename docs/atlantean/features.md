@@ -71,6 +71,8 @@ python3 utils/package_atlantean_release.py
 ```
 
 Pass ``--format dir`` when a deployment target expects an unpacked directory tree, ``--no-include-docs`` to skip the lore/features documentation, or ``--no-include-server`` to omit the backend service for data-only drops. The output location can be overridden with ``--output``; add ``--force`` to overwrite an existing artifact. The script is idempotent and may be wired into build pipelines to keep production drops in sync with the repository.【F:utils/package_atlantean_release.py†L1-L155】
+Use ``--no-include-ops`` if you need to exclude the new Docker Compose assets from a
+minimal bundle.
 
 ### Atlantean production service
 
@@ -85,3 +87,6 @@ streams Prometheus metrics from `/metrics` for production observability, and it
 enables SQLite WAL mode for multi-process resilience. Deployment guidance and
 the full API reference live in
 [`docs/atlantean/production.md`](production.md).
+Environment variables now cover every runtime option so ops teams can inject
+secrets via orchestrators, and Docker assets under `ops/atlantean/` provide a
+turnkey Compose stack for production rollouts.

@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import sqlite3
 import threading
 import time
@@ -33,11 +34,19 @@ from datetime import UTC, datetime, timedelta
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Any, Dict, Iterable, Optional, Set, Tuple
+from typing import Any, Dict, Iterable, Mapping, Optional, Set, Tuple
 from urllib.parse import parse_qs, urlparse
 
 
 LOG = logging.getLogger(__name__)
+
+
+DEFAULT_HOST = "127.0.0.1"
+DEFAULT_PORT = 8080
+DEFAULT_DB_PATH = Path("dist/atlantean_prod.sqlite")
+ENV_PREFIX = "ATLANTEAN_"
+ENV_BOOL_TRUE = {"1", "true", "yes", "on"}
+ENV_BOOL_FALSE = {"0", "false", "no", "off"}
 
 
 class AtlanteanDatabase:
@@ -669,12 +678,21 @@ class AtlanteanProdServer(ThreadingHTTPServer):
 
 def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Atlantean Sovereignty prod server")
-    parser.add_argument("--host", default="127.0.0.1", help="Host interface to bind")
-    parser.add_argument("--port", type=int, default=8080, help="Port to listen on")
+    parser.add_argument(
+        "--host",
+        default=None,
+        help="Host interface to bind (defaults to 127.0.0.1 or ATLANTEAN_HOST).",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=None,
+        help="Port to listen on (defaults to 8080 or ATLANTEAN_PORT).",
+    )
     parser.add_argument(
         "--db",
         type=Path,
-        default=Path("dist/atlantean_prod.sqlite"),
+        default=None,
         help="Path to the SQLite database for persisting state.",
     )
     parser.add_argument(
@@ -682,7 +700,10 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
         action="append",
         dest="api_keys",
         default=[],
-        help="API key allowed to access the REST endpoints. Can be repeated.",
+        help=(
+            "API key allowed to access the REST endpoints. Can be repeated. "
+            "See ATLANTEAN_API_KEYS for environment configuration."
+        ),
     )
     parser.add_argument(
         "--api-key-file",
@@ -694,7 +715,10 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
         action="append",
         dest="admin_keys",
         default=[],
-        help="Admin key required for maintenance endpoints. Can be repeated.",
+        help=(
+            "Admin key required for maintenance endpoints. Can be repeated. "
+            "See ATLANTEAN_ADMIN_KEYS for environment configuration."
+        ),
     )
     parser.add_argument(
         "--admin-key-file",
@@ -704,7 +728,7 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     parser.add_argument(
         "--require-auth",
         choices=("auto", "yes", "no"),
-        default="auto",
+        default=None,
         help=(
             "Authentication policy: 'auto' requires keys when provided, 'yes' always "
             "requires a key, 'no' disables key enforcement."
@@ -716,6 +740,78 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
         help="Create the database schema then exit without serving.",
     )
     return parser.parse_args(argv)
+
+
+def _split_env_list(value: str | None) -> list[str]:
+    if not value:
+        return []
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+def _parse_env_bool(value: str) -> bool:
+    lowered = value.strip().lower()
+    if lowered in ENV_BOOL_TRUE:
+        return True
+    if lowered in ENV_BOOL_FALSE:
+        return False
+    raise ValueError(
+        "Environment flag expected one of yes/no/true/false/1/0 for ATLANTEAN_INIT_ONLY",
+    )
+
+
+def apply_environment_overrides(
+    args: argparse.Namespace,
+    env: Mapping[str, str] | None = None,
+) -> argparse.Namespace:
+    """Merge environment configuration into CLI arguments."""
+
+    env = env or os.environ
+
+    if args.host is None:
+        args.host = env.get(f"{ENV_PREFIX}HOST", DEFAULT_HOST)
+
+    if args.port is None:
+        port_value = env.get(f"{ENV_PREFIX}PORT")
+        if port_value:
+            try:
+                args.port = int(port_value)
+            except ValueError as exc:
+                raise ValueError("ATLANTEAN_PORT must be an integer") from exc
+        else:
+            args.port = DEFAULT_PORT
+
+    if args.db is None:
+        db_value = env.get(f"{ENV_PREFIX}DB")
+        args.db = Path(db_value) if db_value else DEFAULT_DB_PATH
+
+    args.api_keys.extend(_split_env_list(env.get(f"{ENV_PREFIX}API_KEYS")))
+    args.admin_keys.extend(_split_env_list(env.get(f"{ENV_PREFIX}ADMIN_KEYS")))
+
+    if args.api_key_file is None:
+        api_file = env.get(f"{ENV_PREFIX}API_KEY_FILE")
+        if api_file:
+            args.api_key_file = Path(api_file)
+
+    if args.admin_key_file is None:
+        admin_file = env.get(f"{ENV_PREFIX}ADMIN_KEY_FILE")
+        if admin_file:
+            args.admin_key_file = Path(admin_file)
+
+    if args.require_auth is None:
+        auth_value = env.get(f"{ENV_PREFIX}REQUIRE_AUTH")
+        if auth_value:
+            auth_lower = auth_value.strip().lower()
+            if auth_lower not in {"auto", "yes", "no"}:
+                raise ValueError("ATLANTEAN_REQUIRE_AUTH must be one of: auto, yes, no")
+            args.require_auth = auth_lower
+        else:
+            args.require_auth = "auto"
+
+    init_flag = env.get(f"{ENV_PREFIX}INIT_ONLY")
+    if init_flag is not None:
+        args.init_only = _parse_env_bool(init_flag)
+
+    return args
 
 
 def resolve_api_keys(args: argparse.Namespace) -> tuple[Set[str], bool]:
@@ -750,6 +846,10 @@ def _load_keys(sources: Iterable[str], file_path: Path | None) -> Set[str]:
 
 def run_server(args: argparse.Namespace) -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    if args.host is None or args.port is None or args.db is None:
+        raise ValueError(
+            "Server configuration incomplete; ensure environment defaults were applied.",
+        )
     db_path = args.db
     db_path.parent.mkdir(parents=True, exist_ok=True)
     api_keys, enforce_auth = resolve_api_keys(args)
@@ -790,7 +890,7 @@ def run_server(args: argparse.Namespace) -> None:
 
 
 def main(argv: Optional[Iterable[str]] = None) -> int:
-    args = parse_args(argv or [])
+    args = apply_environment_overrides(parse_args(argv or []))
     try:
         run_server(args)
         return 0

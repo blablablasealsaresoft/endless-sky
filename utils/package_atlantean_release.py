@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Package the Atlantean Sovereignty content into a production-ready bundle.
 
-This script gathers the Atlantean data files, documentation, and optional
-production server into a single distribution artifact that can be shipped to
-players. By default it produces a zip archive under ``dist/atlantean_prod.zip``;
-alternatively, a directory tree can be created with ``--format dir`` for
-installers that expect unpacked assets.
+This script gathers the Atlantean data files, documentation, optional
+production server, and deployment assets into a single distribution artifact
+that can be shipped to players. By default it produces a zip archive under
+``dist/atlantean_prod.zip``; alternatively, a directory tree can be created with
+``--format dir`` for installers that expect unpacked assets.
 
 Usage examples::
 
@@ -77,6 +77,19 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.set_defaults(include_server=True)
     parser.add_argument(
+        "--include-ops",
+        dest="include_ops",
+        action="store_true",
+        help="Include Docker Compose deployment assets.",
+    )
+    parser.add_argument(
+        "--no-include-ops",
+        dest="include_ops",
+        action="store_false",
+        help="Skip the deployment assets (ops/atlantean).",
+    )
+    parser.set_defaults(include_ops=True)
+    parser.add_argument(
         "--force",
         "-f",
         action="store_true",
@@ -85,7 +98,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
-def resolve_sources(include_docs: bool, include_server: bool) -> Tuple[Path, ...]:
+def resolve_sources(
+    include_docs: bool,
+    include_server: bool,
+    include_ops: bool,
+) -> Tuple[Path, ...]:
     """Return the Atlantean content resources to package."""
 
     sources = [REPO_ROOT / "data" / "atlantean"]
@@ -93,6 +110,8 @@ def resolve_sources(include_docs: bool, include_server: bool) -> Tuple[Path, ...
         sources.append(REPO_ROOT / "docs" / "atlantean")
     if include_server:
         sources.append(REPO_ROOT / "server" / "atlantean_server.py")
+    if include_ops:
+        sources.append(REPO_ROOT / "ops" / "atlantean")
 
     missing = [path for path in sources if not path.exists()]
     if missing:
@@ -156,6 +175,7 @@ def main(argv: list[str]) -> int:
         sources = resolve_sources(
             include_docs=args.include_docs,
             include_server=args.include_server,
+            include_ops=args.include_ops,
         )
     except FileNotFoundError as exc:
         print(str(exc), file=sys.stderr)

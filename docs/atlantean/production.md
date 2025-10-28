@@ -244,6 +244,27 @@ python3 server/atlantean_server.py \
 When no admin keys are configured, the purge endpoint is disabled to prevent
 accidental unauthenticated maintenance calls.
 
+### Environment configuration
+
+Operators who prefer declarative configuration can use environment variables to
+override CLI flags. Every variable is optional; command-line arguments always
+take precedence when supplied.
+
+| Variable | Description |
+| --- | --- |
+| `ATLANTEAN_HOST` | Bind address for the HTTP service (defaults to `127.0.0.1`). |
+| `ATLANTEAN_PORT` | Listening port (defaults to `8080`). |
+| `ATLANTEAN_DB` | Filesystem path to the SQLite database. |
+| `ATLANTEAN_API_KEYS` | Comma-separated list of API keys to trust. |
+| `ATLANTEAN_ADMIN_KEYS` | Comma-separated list of admin keys. |
+| `ATLANTEAN_API_KEY_FILE` | Path to a newline-delimited API key file. |
+| `ATLANTEAN_ADMIN_KEY_FILE` | Path to a newline-delimited admin key file. |
+| `ATLANTEAN_REQUIRE_AUTH` | Authentication policy (`auto`, `yes`, or `no`). |
+| `ATLANTEAN_INIT_ONLY` | When set to `true`, initialises the database then exits. |
+
+Boolean variables accept `1/0`, `true/false`, or `yes/no`. Invalid values raise a
+startup error so misconfigured deployments fail fast.
+
 ## Deployment notes
 
 - The service uses SQLite for persistence and accepts concurrent requests.
@@ -252,6 +273,9 @@ accidental unauthenticated maintenance calls.
   authentication or rate limiting if required.
 - The service is stateless beyond the SQLite file, making it easy to containerise
   or manage with process supervisors like `systemd`.
+- Sample Docker assets in `ops/atlantean` bootstrap a Compose stack that mounts
+  durable storage and injects keys via environment variables for production
+  rollouts.
 - Use standard backup tooling to capture the database file; the schema is small
   and intentionally simple.
 

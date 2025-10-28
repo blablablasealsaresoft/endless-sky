@@ -12,7 +12,11 @@ from typing import Tuple
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from server.atlantean_server import AtlanteanProdServer
+from server.atlantean_server import (
+    AtlanteanProdServer,
+    apply_environment_overrides,
+    parse_args,
+)
 
 
 class AtlanteanServerTestCase(unittest.TestCase):
@@ -365,6 +369,46 @@ class AtlanteanServerTestCase(unittest.TestCase):
         )
         self.assertEqual(status, 200)
         self.assertFalse(payload["entries"])
+
+
+class AtlanteanEnvironmentConfigTestCase(unittest.TestCase):
+    """Verify environment-based configuration helpers."""
+
+    def test_environment_overrides_populate_defaults(self) -> None:
+        env = {
+            "ATLANTEAN_HOST": "0.0.0.0",
+            "ATLANTEAN_PORT": "9090",
+            "ATLANTEAN_DB": "tests/env.sqlite",
+            "ATLANTEAN_API_KEYS": "env-key-1, env-key-2",
+            "ATLANTEAN_ADMIN_KEYS": "env-admin-1",
+            "ATLANTEAN_REQUIRE_AUTH": "yes",
+            "ATLANTEAN_INIT_ONLY": "true",
+        }
+        args = apply_environment_overrides(parse_args([]), env)
+        self.assertEqual(args.host, "0.0.0.0")
+        self.assertEqual(args.port, 9090)
+        self.assertEqual(args.db, Path("tests/env.sqlite"))
+        self.assertIn("env-key-1", args.api_keys)
+        self.assertIn("env-key-2", args.api_keys)
+        self.assertIn("env-admin-1", args.admin_keys)
+        self.assertEqual(args.require_auth, "yes")
+        self.assertTrue(args.init_only)
+
+    def test_invalid_environment_values_raise(self) -> None:
+        with self.assertRaises(ValueError):
+            apply_environment_overrides(parse_args([]), {"ATLANTEAN_PORT": "oops"})
+
+        with self.assertRaises(ValueError):
+            apply_environment_overrides(
+                parse_args([]),
+                {"ATLANTEAN_REQUIRE_AUTH": "sometimes"},
+            )
+
+        with self.assertRaises(ValueError):
+            apply_environment_overrides(
+                parse_args([]),
+                {"ATLANTEAN_INIT_ONLY": "maybe"},
+            )
 
 
 if __name__ == "__main__":  # pragma: no cover
