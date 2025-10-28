@@ -26,6 +26,9 @@ deployment tips for production environments.
    python3 server/atlantean_server.py --db dist/atlantean_prod.sqlite --init-only
    ```
 
+4. (Recommended) Configure API keys for any public-facing deployment. See the
+   [Authentication](#authentication) section below.
+
 ## API reference
 
 All endpoints exchange JSON payloads. Error responses return an `error`
@@ -125,6 +128,63 @@ empty object.
 
 Exports telemetry events (newest first). `limit` is optional; omit it to export
 all events.
+
+### `GET /api/v1/stats/summary?top_limit=10`
+
+Returns aggregate production statistics derived from the stored ladder, ledger,
+and telemetry data. The optional `top_limit` parameter (1–100) controls how many
+players appear in the leaderboard excerpt.
+
+**Response body**
+
+```json
+{
+  "generated_at": "2024-01-01T12:34:56Z",
+  "ladder": {
+    "entries": 25,
+    "players": 8,
+    "top": [
+      {"player": "PilotName", "best_score": 12345, "first_recorded": "2024-01-01T12:00:00"}
+    ]
+  },
+  "ledger": {
+    "entries": 18,
+    "assets": [
+      {"asset": "SOL", "total": 250.5}
+    ]
+  },
+  "telemetry": {
+    "events": 42,
+    "types": [
+      {"event_type": "match_start", "count": 10}
+    ]
+  }
+}
+```
+
+## Authentication
+
+The service includes API-key authentication so only trusted clients can submit
+scores or ledger entries. Keys may be specified via repeated `--api-key` flags
+or supplied in a newline-delimited file:
+
+```bash
+python3 server/atlantean_server.py \
+  --db dist/atlantean_prod.sqlite \
+  --api-key-file ops/atlantean_keys.txt \
+  --require-auth yes
+```
+
+- `--api-key KEY` can be repeated to register several trusted tokens.
+- `--api-key-file PATH` reads newline-delimited keys (blank lines and `#`
+  comments are ignored).
+- `--require-auth` controls enforcement: `auto` (default) requires keys only if
+  any are configured, `yes` always enforces checks, and `no` disables the
+  requirement even when keys are present.
+
+Clients must include the `X-Atlantean-Key` header in every API request. Missing
+or invalid keys result in `401 Unauthorized` responses, while `/healthz` remains
+open for infrastructure probes.
 
 ## Deployment notes
 

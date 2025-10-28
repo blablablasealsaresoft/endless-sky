@@ -64,19 +64,22 @@ The Atlantean data pack now covers the major MMOFPS pillars—active rotations, 
 
 ## Shipping the Atlantean Pack
 
-Use the ``utils/package_atlantean_release.py`` helper to create a production bundle that can be dropped into release builds or uploaded to content mirrors. By default it writes a zip archive containing only the Atlantean data files and documentation.
+Use the ``utils/package_atlantean_release.py`` helper to create a production bundle that can be dropped into release builds or uploaded to content mirrors. By default it writes a zip archive containing the Atlantean data files, documentation, and the lightweight production server.
 
 ```bash
 python3 utils/package_atlantean_release.py
 ```
 
-Pass ``--format dir`` when a deployment target expects an unpacked directory tree, and ``--no-include-docs`` to skip the lore/features documentation for space-constrained storefronts. The output location can be overridden with ``--output``; add ``--force`` to overwrite an existing artifact. The script is idempotent and may be wired into build pipelines to keep production drops in sync with the repository.【F:utils/package_atlantean_release.py†L1-L141】
+Pass ``--format dir`` when a deployment target expects an unpacked directory tree, ``--no-include-docs`` to skip the lore/features documentation, or ``--no-include-server`` to omit the backend service for data-only drops. The output location can be overridden with ``--output``; add ``--force`` to overwrite an existing artifact. The script is idempotent and may be wired into build pipelines to keep production drops in sync with the repository.【F:utils/package_atlantean_release.py†L1-L155】
 
 ### Atlantean production service
 
 The repository also ships with a minimal online services stack so the MMO-style
 features advertised in the Atlantean storyline can run against a real backend.
 Launch `server/atlantean_server.py` to expose REST endpoints for ladder
-submissions, faux Solana ledger accounting, and telemetry ingestion backed by a
-SQLite database. Deployment guidance and the full API reference live in
+submissions, faux Solana ledger accounting, telemetry ingestion, and stats
+aggregation backed by a SQLite database. The service now enforces API-key
+authentication so only trusted ops clients can mutate leaderboards or ledgers,
+and it enables SQLite WAL mode for multi-process resilience. Deployment
+guidance and the full API reference live in
 [`docs/atlantean/production.md`](production.md).

@@ -33,7 +33,7 @@ from datetime import UTC, datetime
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Any, Dict, Iterable, Optional, Tuple
+from typing import Any, Dict, Iterable, Optional, Set, Tuple
 from urllib.parse import parse_qs, urlparse
 
 
@@ -53,6 +53,10 @@ class AtlanteanDatabase:
     # ------------------------------------------------------------------
     def _ensure_schema(self) -> None:
         with self._connection:  # type: ignore[call-arg]
+            # Use WAL for improved concurrency and durability under multi-process
+            # deployments while keeping the schema intentionally lightweight.
+            self._connection.execute("PRAGMA journal_mode=WAL;")
+            self._connection.execute("PRAGMA foreign_keys=ON;")
             self._connection.executescript(
                 """
                 CREATE TABLE IF NOT EXISTS ladder_scores (
@@ -212,12 +216,66 @@ class AtlanteanDatabase:
             "timestamp": datetime.now(UTC).isoformat(),
         }
 
+    # ------------------------------------------------------------------
+    def stats_summary(self, ladder_limit: int = 10) -> dict[str, Any]:
+        """Return aggregate production statistics for dashboards."""
+
+        top_players = self.top_ladder(ladder_limit)
+
+        with self._lock:
+            ladder_entries = self._connection.execute("SELECT COUNT(*) FROM ladder_scores").fetchone()[
+                0
+            ]
+            ladder_players = self._connection.execute(
+                "SELECT COUNT(DISTINCT player) FROM ladder_scores"
+            ).fetchone()[0]
+
+            ledger_entries = self._connection.execute("SELECT COUNT(*) FROM ledger_entries").fetchone()[
+                0
+            ]
+            ledger_assets = self._connection.execute(
+                "SELECT asset, SUM(amount) AS total_amount FROM ledger_entries GROUP BY asset"
+            ).fetchall()
+
+            telemetry_events = self._connection.execute(
+                "SELECT COUNT(*) FROM telemetry_events"
+            ).fetchone()[0]
+            telemetry_types = self._connection.execute(
+                "SELECT event_type, COUNT(*) AS count FROM telemetry_events GROUP BY event_type"
+            ).fetchall()
+
+        asset_totals = [
+            {"asset": row["asset"], "total": float(row["total_amount"] or 0.0)}
+            for row in ledger_assets
+        ]
+        telemetry_breakdown = [
+            {"event_type": row["event_type"], "count": int(row["count"])} for row in telemetry_types
+        ]
+
+        return {
+            "generated_at": datetime.now(UTC).isoformat(),
+            "ladder": {
+                "entries": int(ladder_entries),
+                "players": int(ladder_players),
+                "top": top_players,
+            },
+            "ledger": {
+                "entries": int(ledger_entries),
+                "assets": asset_totals,
+            },
+            "telemetry": {
+                "events": int(telemetry_events),
+                "types": telemetry_breakdown,
+            },
+        }
+
 
 class AtlanteanRequestHandler(BaseHTTPRequestHandler):
     """Serve REST API endpoints using :class:`AtlanteanDatabase`."""
 
     server_version = "AtlanteanProdServer/1.0"
     db: AtlanteanDatabase
+    api_key_header = "X-Atlantean-Key"
 
     def log_message(self, format: str, *args: Any) -> None:  # pragma: no cover - noisy in tests
         LOG.info("%s - %s", self.address_string(), format % args)
@@ -225,6 +283,8 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
     # ------------------------------------------------------------------
     def do_GET(self) -> None:  # noqa: N802 - inherited name
         parsed = urlparse(self.path)
+        if parsed.path.startswith("/api/") and not self._require_api_key():
+            return
         if parsed.path == "/healthz":
             return self._send_json(HTTPStatus.OK, self.db.health_summary())
         if parsed.path == "/api/v1/ladder/top":
@@ -253,12 +313,22 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
                     return
             events = self.db.telemetry_events(limit)
             return self._send_json(HTTPStatus.OK, {"events": events})
+        if parsed.path == "/api/v1/stats/summary":
+            params = parse_qs(parsed.query or "")
+            limit_param = params.get("top_limit", ["10"])[0]
+            top_limit = self._positive_int(limit_param, 1, 100)
+            if top_limit is None:
+                return
+            payload = self.db.stats_summary(top_limit)
+            return self._send_json(HTTPStatus.OK, payload)
 
         self._send_json(HTTPStatus.NOT_FOUND, {"error": "Unknown endpoint."})
 
     # ------------------------------------------------------------------
     def do_POST(self) -> None:  # noqa: N802 - inherited name
         parsed = urlparse(self.path)
+        if parsed.path.startswith("/api/") and not self._require_api_key():
+            return
         if parsed.path == "/api/v1/ladder/submit":
             return self._handle_ladder_submit()
         if parsed.path == "/api/v1/ledger/record":
@@ -267,6 +337,20 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
             return self._handle_telemetry_event()
 
         self._send_json(HTTPStatus.NOT_FOUND, {"error": "Unknown endpoint."})
+
+    # ------------------------------------------------------------------
+    def _require_api_key(self) -> bool:
+        server = getattr(self, "server")
+        if not getattr(server, "require_auth", False):
+            return True
+        provided = (self.headers.get(self.api_key_header) or "").strip()
+        if provided and provided in getattr(server, "api_keys", frozenset()):
+            return True
+        self._send_json(
+            HTTPStatus.UNAUTHORIZED,
+            {"error": "Missing or invalid Atlantean API key."},
+        )
+        return False
 
     # ------------------------------------------------------------------
     def _handle_ladder_submit(self) -> None:
@@ -388,8 +472,17 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
 class AtlanteanProdServer(ThreadingHTTPServer):
     """HTTP server that exposes :class:`AtlanteanRequestHandler`."""
 
-    def __init__(self, address: Tuple[str, int], db_path: Path):
+    def __init__(
+        self,
+        address: Tuple[str, int],
+        db_path: Path,
+        api_keys: Iterable[str] | None = None,
+        require_auth: Optional[bool] = None,
+    ) -> None:
         self.database = AtlanteanDatabase(db_path)
+        keys: Set[str] = {key.strip() for key in api_keys or [] if key and key.strip()}
+        self.api_keys = frozenset(keys)
+        self.require_auth = bool(self.api_keys) if require_auth is None else bool(require_auth)
 
         class Handler(AtlanteanRequestHandler):
             db = self.database
@@ -408,6 +501,27 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
         help="Path to the SQLite database for persisting state.",
     )
     parser.add_argument(
+        "--api-key",
+        action="append",
+        dest="api_keys",
+        default=[],
+        help="API key allowed to access the REST endpoints. Can be repeated.",
+    )
+    parser.add_argument(
+        "--api-key-file",
+        type=Path,
+        help="File containing newline-delimited API keys to trust.",
+    )
+    parser.add_argument(
+        "--require-auth",
+        choices=("auto", "yes", "no"),
+        default="auto",
+        help=(
+            "Authentication policy: 'auto' requires keys when provided, 'yes' always "
+            "requires a key, 'no' disables key enforcement."
+        ),
+    )
+    parser.add_argument(
         "--init-only",
         action="store_true",
         help="Create the database schema then exit without serving.",
@@ -415,17 +529,52 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def resolve_api_keys(args: argparse.Namespace) -> tuple[Set[str], bool]:
+    """Load API keys from CLI args and decide whether authentication is required."""
+
+    keys: Set[str] = {key.strip() for key in args.api_keys if key and key.strip()}
+    if args.api_key_file:
+        try:
+            for line in args.api_key_file.read_text().splitlines():
+                key = line.strip()
+                if key and not key.startswith("#"):
+                    keys.add(key)
+        except FileNotFoundError as exc:  # pragma: no cover - exercised via CLI
+            exc.add_note(f"API key file not found: {args.api_key_file}")
+            raise
+
+    if args.require_auth == "yes":
+        enforce = True
+    elif args.require_auth == "no":
+        enforce = False
+    else:
+        enforce = bool(keys)
+    return keys, enforce
+
+
 def run_server(args: argparse.Namespace) -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     db_path = args.db
     db_path.parent.mkdir(parents=True, exist_ok=True)
-    server = AtlanteanProdServer((args.host, args.port), db_path)
+    api_keys, enforce_auth = resolve_api_keys(args)
+    server = AtlanteanProdServer((args.host, args.port), db_path, api_keys=api_keys, require_auth=enforce_auth)
 
     if args.init_only:
-        LOG.info("Database initialised at %s", db_path)
+        LOG.info(
+            "Database initialised at %s (auth=%s, api_keys=%s)",
+            db_path,
+            "enabled" if enforce_auth else "disabled",
+            len(api_keys),
+        )
         return
 
-    LOG.info("Starting Atlantean production service on %s:%s", args.host, args.port)
+    LOG.info(
+        "Starting Atlantean production service on %s:%s (auth=%s, api_keys=%s)",
+        args.host,
+        args.port,
+        "enabled" if enforce_auth else "disabled",
+        len(api_keys),
+    )
     try:
         server.serve_forever()
     except KeyboardInterrupt:  # pragma: no cover - manual shutdown
@@ -440,7 +589,7 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
     try:
         run_server(args)
         return 0
-    except OSError as exc:
+    except (FileNotFoundError, OSError, ValueError) as exc:
         LOG.error("Failed to start server: %s", exc)
         return 1
 
