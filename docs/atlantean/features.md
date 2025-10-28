@@ -1,0 +1,39 @@
+# Atlantean MMOFPS Feature Snapshot
+
+This document summarizes the Atlantean Sovereignty content that currently exists in the data files and calls out major MMOFPS expectations that are **not** yet implemented. Use it as a quick reference when evaluating gaps between the present prototype and the Blizzard/Halo-style vision.
+
+## Implemented Content
+
+### Faction & Progression Hooks
+- **Government:** `Atlantean Sovereignty` is defined with its own diplomacy profile and hail lines so it can participate in universe politics like any other faction.【F:data/governments.txt†L2299-L2320】
+- **Licenses & Campaign:** The prologue missions award the `Atlantean Vanguard` license, unlock an Arsenal outfitter on Earth, and expand fleet presence across Sol, giving a story-driven onboarding flow.【F:data/atlantean/atlantean.txt†L333-L383】【F:data/atlantean/atlantean.txt†L410-L419】
+- **License visibility & gating:** Dedicated license outfits now document each Atlantean rank and exchange clearance, and the Solana Bridge uplink requires the bridge clearance alongside exchange access so the crypto loop can't be skipped.【F:data/atlantean/atlantean.txt†L162-L198】
+- **Ranked Leveling:** Completing the prologue, arena jobs, and exchange missions now increments an `Atlantean XP` counter and unlocks `Atlantean Vanguard Rank I-III` licenses through ascension trials, providing a light level curve and higher-tier gear gates.【F:data/atlantean/atlantean.txt†L466-L778】
+- **Talent Matrix:** Veteran pilots can unlock a talent matrix mission on Earth to buy specialization implants, and Mythic pilots earn a calibrated choir catalyst through a symposium, adding MMO-style build choices to the loadout loop.【F:data/atlantean/atlantean.txt†L728-L818】
+- **Paragon Synergy Trials:** A new Paragon convergence and synergy calibration mission chain grants the `Atlantean Vanguard Rank IV` license, unlocks the Synergy Archive outfitter, and hands out prototype synergy mods for pilots who demonstrate coordinated talent loadouts.【F:data/atlantean/atlantean.txt†L320-L348】【F:data/atlantean/atlantean.txt†L118-L150】【F:data/atlantean/atlantean.txt†L1136-L1211】【F:data/atlantean/atlantean.txt†L1225-L1240】
+- **Talent Grid & Clearance:** Four Paragon-only talent grid missions now consume AquaToken caches to install Bulwark, Overwatch, Gambit, and Orchestrator nodes before registering a grid clearance that unlocks the Grid Command synergy uplink.【F:data/atlantean/atlantean.txt†L337-L412】【F:data/atlantean/atlantean.txt†L1350-L1496】
+
+### Gear & Economy
+- **Atlantean Arsenal:** Multiple resonance weapons, defensive systems, engines, and support outfits emulate Halo/Destiny fireteam roles for capital ships, and the new Mythic Fusion Rifle/Arena Thruster/Bastion Bulwark extend that catalog for higher ranks.【F:data/atlantean/atlantean.txt†L14-L236】
+- **Auction House:** The `Atlantean Auction House Activation` mission brings a rotating outfitter online so ranked pilots can spend tokens and credits on premium drops alongside the original exchange turn-ins.【F:data/atlantean/atlantean.txt†L706-L755】【F:data/atlantean/atlantean.txt†L120-L206】
+- **Solana Bridge:** A dedicated mission installs the `Solana Bridge Uplink` and unlocks repeatable cash-out contracts, letting AquaToken caches convert into credits via a lore-friendly on-chain mirror.【F:data/atlantean/atlantean.txt†L688-L742】
+- **Ledger Safeguards:** The AquaToken ledger is now bound to the Atlantean Vanguard license and remains a lightweight data outfit, preventing unintended drive buffs while keeping the crypto economy gated to ranked pilots.【F:data/atlantean/atlantean.txt†L132-L174】
+- **Reactive Auction Windows:** New bid relay and player listing missions create timed delivery loops for auction traffic, while rotating outfitter events cycle limited-run relics so the metaverse market feels alive.【F:data/atlantean/atlantean.txt†L818-L946】【F:data/atlantean/atlantean.txt†L1116-L1179】
+- **Synergy Mods & Flash Bids:** Rank IV unlocks additional talent implants, synergy modules, and the Synergy Archive outfitter, and flash-bid courier jobs force rapid deliveries to keep the auction economy volatile.【F:data/atlantean/atlantean.txt†L186-L238】【F:data/atlantean/atlantean.txt†L1038-L1184】
+- **Market Depth Streaming:** Brokers can calibrate a market-depth beacon that streams live listings to the flagship and unlock repeatable sweeps to Callisto, which in turn pulse new rotation stock across Titan and Callisto exchanges.【F:data/atlantean/atlantean.txt†L162-L185】【F:data/atlantean/atlantean.txt†L1498-L1547】【F:data/atlantean/atlantean.txt†L1705-L1709】
+
+### Fleets & Encounters
+- **Fireteam Deployments:** Hawk and Falcon variants use the new gear, while Strike Battalion fleets patrol Sol once the player engages with the exchange storyline.【F:data/atlantean/atlantean.txt†L216-L314】【F:data/atlantean/atlantean.txt†L525-L534】
+- **Arena PvP Simulations:** Repeatable control and slayer jobs spawn `Atlantean War Games` fleets near Mars and Titan, paying out caches, XP, and credits to mimic Halo/CoD multiplayer queues inside Endless Sky's single-player framework.【F:data/atlantean/atlantean.txt†L804-L880】【F:data/governments.txt†L2322-L2345】
+
+## Remaining MMO Pillars
+
+The latest pass adds simulated leveling, PvP queues, and an auction outfitter, but several Blizzard-scale expectations still require future work:
+- **Deep Talent Trees & Roles:** Ascension ranks and synergy mods exist, yet there are no branching talent trees, cooldown management mechanics, or class-defining ability rotations beyond passive implants.
+- **Player-Driven Economy:** Listings, flash bids, and rotation events simulate dynamic supply, but there is still no direct player-to-player market depth, pricing AI, or persistent inventory tracking.
+- **True Online Multiplayer:** Endless Sky remains single-player; the arena runs are scripted encounters that only emulate PvP scoreboard pacing.
+- **External Blockchain Hooks:** The Solana bridge mirrors caches in lore and now includes validator sync and heartbeat missions that gate production traffic behind a sync token, but there is still no actual network connectivity, wallet integration, or signature validation beyond mission scripting.【F:data/atlantean/atlantean.txt†L175-L185】【F:data/atlantean/atlantean.txt†L1550-L1595】
+
+## Next Steps to Reach the Vision
+
+Future milestones should focus on full talent trees with active abilities, persistent market simulations with long-lived listings, and, if desired, genuine networking or external API calls to back the Solana flavor with real connectivity. Those layers would elevate the Atlantean experience from a rich single-player saga to the fully fledged metaverse MMOFPS envisioned.
