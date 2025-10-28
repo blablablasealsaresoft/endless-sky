@@ -455,6 +455,21 @@ outfit "Atlantean Tempest Resonator"
                 "pierce" .25
         description "Tempest resonators overclock resonance lances with raid-tier burst logic. Only specialization marshals can stabilize the waveform, chaining Halo-precise kill windows that feel like a Mythic DPS burn translated into capital ship broadsides."
 
+outfit "Atlantean Ability Module: Tempest Overdrive"
+        category "Systems"
+        series "Atlantean Ability Modules"
+        cost 640000
+        thumbnail "outfit/large core"
+        "mass" 4
+        "outfit space" -4
+        "weapon capacity" 4
+        "energy generation" .55
+        "cooling" 9
+        "heat generation" .15
+        "energy consumption" .1
+        "shield energy" -.1
+        description "Tempest overdrive modules engrave an active assault script into the flagship. Triggering the weave dumps stored AquaToken charge into the guns, spiking weapon bandwidth and cooling so DPS captains can execute WoW-style burn phases without melting their hardpoints."
+
 outfit "Atlantean Bastion Rampart"
         category "Systems"
         series "Atlantean Arsenal"
@@ -472,6 +487,21 @@ outfit "Atlantean Bastion Rampart"
         "cooling" 10
         description "Bastion ramparts braid ward conduits with Paragon bulwarks so tanks can sustain MMO boss pressure. The lattice redirects burst damage into regenerative undertows, letting Bastion specialists call shields for entire fireteams."
 
+outfit "Atlantean Ability Module: Bastion Bulwark Pulse"
+        category "Systems"
+        series "Atlantean Ability Modules"
+        cost 620000
+        thumbnail "outfit/large shield"
+        "mass" 5
+        "outfit space" -5
+        "shield generation" .75
+        "shield energy" .55
+        "hull repair rate" .25
+        "energy consumption" .25
+        "heat generation" .25
+        "cooling" 6
+        description "Bastion bulwark pulses bank Solana bridge charge into a defensive nova. The activated lattice mirrors MMO tank cooldowns, rapidly restacking shields and hull plating so Leviathan sieges feel like Mythic raid mitigation checks."
+
 outfit "Atlantean Chorus Harmonic Spire"
         category "Systems"
         series "Atlantean Arsenal"
@@ -487,6 +517,20 @@ outfit "Atlantean Chorus Harmonic Spire"
         "shield generation" .45
         "energy consumption" .3
         description "Harmonic spires let Chorus specialists flood allied ships with synchronized overclocks. The spire listens for raid callouts and answers with energy and shield surges that feel like WoW-style raid healing cooldowns applied across capital squadrons."
+
+outfit "Atlantean Ability Module: Chorus Resonance Field"
+        category "Systems"
+        series "Atlantean Ability Modules"
+        cost 615000
+        thumbnail "outfit/large core"
+        "mass" 4
+        "outfit space" -4
+        "energy capacity" 5200
+        "energy generation" .65
+        "shield generation" .35
+        "cooling" 7
+        "heat generation" .18
+        description "Chorus resonance fields entangle allied systems in a temporary hymn. When activated, the module radiates support energy that mimics Halo support supers—accelerating recharge cycles and lending shared shields to every linked fireteam hull."
 
 outfit "Atlantean Synergy Mod: Triad Confluence"
         category "Systems"
@@ -688,6 +732,15 @@ outfitter "Atlantean Specialization: Chorus Conservatory"
         "Atlantean Chorus Harmonic Spire"
         "Atlantean Talent: Choir Catalyst"
         "Atlantean Talent Node: Choir Orchestrator"
+
+outfitter "Atlantean Specialization: Tempest Apex"
+        "Atlantean Ability Module: Tempest Overdrive"
+
+outfitter "Atlantean Specialization: Bastion Citadel"
+        "Atlantean Ability Module: Bastion Bulwark Pulse"
+
+outfitter "Atlantean Specialization: Chorus Anthem"
+        "Atlantean Ability Module: Chorus Resonance Field"
 
 outfitter "Atlantean Leviathan Reliquary"
         "Atlantean Synergy Mod: Triad Confluence"
@@ -1454,6 +1507,93 @@ mission "Atlantean Specialization: Chorus Vow"
                 event "Atlantean Specialization: Chorus"
                 log "Campaigns" "Leviathan Protocol" `Pledged to the Chorus conductor specialization, unlocking harmonic support conservatories.`
 
+mission "Atlantean Specialization Ability: Tempest Overdrive"
+        name "Unlock Tempest Overdrive"
+        description "Invest AquaToken charge on Earth to attune the Tempest overdrive assault module."
+        landing
+        source "Earth"
+        to offer
+                has "Atlantean Specialization: Tempest"
+                has "license: Atlantean Vanguard Rank V"
+                has outfit "AquaToken Cache"
+                not "Atlantean Specialization Ability: Tempest"
+        on offer
+                conversation
+                        `Tempest artificers circle a resonance crucible. "We can imprint an overdrive module," they say. "It will drink AquaToken charge to fuel burn-window spikes—if you're willing to invest a cache."`
+                        choice
+                                `                       "Forge the overdrive."`
+                                        accept
+                                `                       "Not yet."`
+                                        decline
+        on accept
+                outfit "AquaToken Cache" -1
+        on complete
+                conversation
+                        `The crucible erupts in white fire as the module locks to your crest. "Overdrive attuned," the artificers confirm. "Trigger it during Leviathan burn calls and you'll feel the Halo-grade burst we're chasing."`
+                outfit "Atlantean Ability Module: Tempest Overdrive"
+                set "Atlantean Specialization Ability: Tempest"
+                event "Atlantean Specialization: Tempest Ability"
+                "Atlantean XP" ++
+                log "Campaigns" "Leviathan Protocol" `Imprinted the Tempest overdrive assault module, unlocking an active burn-phase ability for raid rotations.`
+
+mission "Atlantean Specialization Ability: Bastion Pulse"
+        name "Unlock Bastion Bulwark Pulse"
+        description "Channel caches into the Bastion forge to bind a reactive bulwark pulse module."
+        landing
+        source "Earth"
+        to offer
+                has "Atlantean Specialization: Bastion"
+                has "license: Atlantean Vanguard Rank V"
+                has outfit "AquaToken Cache"
+                not "Atlantean Specialization Ability: Bastion"
+        on offer
+                conversation
+                        `Bastion wardens align Solana conduits around a dormant module. "Sink a cache into the lattice," they advise. "When the Leviathan roars, this bulwark pulse will answer with a raid-saving cooldown."`
+                        choice
+                                `                       "Prime the bulwark pulse."`
+                                        accept
+                                `                       "I'll stock more caches."`
+                                        decline
+        on accept
+                outfit "AquaToken Cache" -1
+        on complete
+                conversation
+                        `Solana filaments braid across the module until it hums with protective resonance. "Bulwark pulse armed," the wardens nod. "Call it when the cohort focuses fire and the shields will knit instantly."`
+                outfit "Atlantean Ability Module: Bastion Bulwark Pulse"
+                set "Atlantean Specialization Ability: Bastion"
+                event "Atlantean Specialization: Bastion Ability"
+                "Atlantean XP" ++
+                log "Campaigns" "Leviathan Protocol" `Forged the Bastion bulwark pulse, gaining an active tank cooldown for Leviathan siege mitigation.`
+
+mission "Atlantean Specialization Ability: Chorus Resonance"
+        name "Unlock Chorus Resonance Field"
+        description "Donate caches at Earth to tune a Chorus resonance field for raid-wide support."
+        landing
+        source "Earth"
+        to offer
+                has "Atlantean Specialization: Chorus"
+                has "license: Atlantean Vanguard Rank V"
+                has outfit "AquaToken Cache"
+                not "Atlantean Specialization Ability: Chorus"
+        on offer
+                conversation
+                        `Chorus mentors assemble a triad of choir catalysts. "With a cache we can weave them into a resonance field," they promise. "It will let you blanket the raid in shared shields during Mythic pushes."`
+                        choice
+                                `                       "Fuse the resonance field."`
+                                        accept
+                                `                       "I'll return with more caches."`
+                                        decline
+        on accept
+                outfit "AquaToken Cache" -1
+        on complete
+                conversation
+                        `Harmonics cascade through the hangar as the catalysts synchronize. "Resonance field tuned," the mentors cheer. "Deploy it whenever the squad needs a WoW-style salvation cooldown."`
+                outfit "Atlantean Ability Module: Chorus Resonance Field"
+                set "Atlantean Specialization Ability: Chorus"
+                event "Atlantean Specialization: Chorus Ability"
+                "Atlantean XP" ++
+                log "Campaigns" "Leviathan Protocol" `Wove the Chorus resonance field, earning an active support cooldown for metaverse fireteams.`
+
 mission "Atlantean Auction: Bid Relay"
         name "Auction Bid Relay"
         description "Race a sealed bid to the Jovian relay before the auction window closes."
@@ -2072,17 +2212,29 @@ event "Atlantean Specialization: Tempest"
                 remove outfitter "Atlantean Specialization: Bastion Forge"
                 remove outfitter "Atlantean Specialization: Chorus Conservatory"
 
+event "Atlantean Specialization: Tempest Ability"
+        planet Earth
+                add outfitter "Atlantean Specialization: Tempest Apex"
+
 event "Atlantean Specialization: Bastion"
         planet Earth
                 add outfitter "Atlantean Specialization: Bastion Forge"
                 remove outfitter "Atlantean Specialization: Tempest Armory"
                 remove outfitter "Atlantean Specialization: Chorus Conservatory"
 
+event "Atlantean Specialization: Bastion Ability"
+        planet Earth
+                add outfitter "Atlantean Specialization: Bastion Citadel"
+
 event "Atlantean Specialization: Chorus"
         planet Earth
                 add outfitter "Atlantean Specialization: Chorus Conservatory"
                 remove outfitter "Atlantean Specialization: Tempest Armory"
                 remove outfitter "Atlantean Specialization: Bastion Forge"
+
+event "Atlantean Specialization: Chorus Ability"
+        planet Earth
+                add outfitter "Atlantean Specialization: Chorus Anthem"
 
 event "Atlantean Leviathan Reliquary Online"
         planet Earth
