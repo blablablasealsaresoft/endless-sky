@@ -80,6 +80,8 @@ Launch `server/atlantean_server.py` to expose REST endpoints for ladder
 submissions, faux Solana ledger accounting, telemetry ingestion, and stats
 aggregation backed by a SQLite database. The service now enforces API-key
 authentication so only trusted ops clients can mutate leaderboards or ledgers,
-and it enables SQLite WAL mode for multi-process resilience. Deployment
-guidance and the full API reference live in
+ships a locked-down admin purge endpoint for compliant data-retention workflows,
+streams Prometheus metrics from `/metrics` for production observability, and it
+enables SQLite WAL mode for multi-process resilience. Deployment guidance and
+the full API reference live in
 [`docs/atlantean/production.md`](production.md).

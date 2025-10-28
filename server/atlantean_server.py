@@ -29,7 +29,7 @@ import logging
 import sqlite3
 import threading
 import time
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -197,6 +197,35 @@ class AtlanteanDatabase:
         return events
 
     # ------------------------------------------------------------------
+    def purge_records(self, cutoff: datetime, categories: Iterable[str]) -> dict[str, int]:
+        """Delete records older than ``cutoff`` for the selected categories."""
+
+        cutoff_utc = cutoff.astimezone(UTC) if cutoff.tzinfo else cutoff.replace(tzinfo=UTC)
+        cutoff_sql = cutoff_utc.replace(tzinfo=None).isoformat(sep=" ", timespec="seconds")
+
+        statements: dict[str, str] = {
+            "ladder": "DELETE FROM ladder_scores WHERE recorded_at < ?",
+            "ledger": "DELETE FROM ledger_entries WHERE recorded_at < ?",
+            "telemetry": "DELETE FROM telemetry_events WHERE recorded_at < ?",
+        }
+
+        requested = {category.lower() for category in categories}
+        if not requested:
+            requested = set(statements)
+
+        invalid = requested - statements.keys()
+        if invalid:
+            raise ValueError(f"Unsupported purge categories: {', '.join(sorted(invalid))}")
+
+        deleted: dict[str, int] = {}
+        with self._lock, self._connection:  # type: ignore[call-arg]
+            for category in sorted(requested):
+                cursor = self._connection.execute(statements[category], (cutoff_sql,))
+                deleted[category] = cursor.rowcount
+
+        return deleted
+
+    # ------------------------------------------------------------------
     def health_summary(self) -> dict[str, Any]:
         with self._lock:
             ladder_count = self._connection.execute("SELECT COUNT(*) FROM ladder_scores").fetchone()[
@@ -222,6 +251,88 @@ class AtlanteanDatabase:
 
         top_players = self.top_ladder(ladder_limit)
 
+        aggregates = self._collect_aggregates()
+
+        asset_totals = [
+            {"asset": row["asset"], "total": float(row["total_amount"] or 0.0)}
+            for row in aggregates["ledger_assets"]
+        ]
+        telemetry_breakdown = [
+            {"event_type": row["event_type"], "count": int(row["count"])}
+            for row in aggregates["telemetry_types"]
+        ]
+
+        return {
+            "generated_at": datetime.now(UTC).isoformat(),
+            "ladder": {
+                "entries": int(aggregates["ladder_entries"]),
+                "players": int(aggregates["ladder_players"]),
+                "top": top_players,
+            },
+            "ledger": {
+                "entries": int(aggregates["ledger_entries"]),
+                "assets": asset_totals,
+            },
+            "telemetry": {
+                "events": int(aggregates["telemetry_events"]),
+                "types": telemetry_breakdown,
+            },
+        }
+
+    # ------------------------------------------------------------------
+    def prometheus_metrics(self) -> str:
+        """Return a Prometheus exposition payload describing current state."""
+
+        aggregates = self._collect_aggregates()
+
+        def escape(value: str) -> str:
+            return value.replace("\\", "\\\\").replace("\n", "\\n").replace('"', '\\"')
+
+        lines = [
+            "# HELP atlantean_ladder_entries_total Total ladder score submissions recorded.",
+            "# TYPE atlantean_ladder_entries_total gauge",
+            f"atlantean_ladder_entries_total {int(aggregates['ladder_entries'])}",
+            "# HELP atlantean_ladder_players_total Unique pilots with ladder activity.",
+            "# TYPE atlantean_ladder_players_total gauge",
+            f"atlantean_ladder_players_total {int(aggregates['ladder_players'])}",
+            "# HELP atlantean_ledger_entries_total Total ledger transactions recorded.",
+            "# TYPE atlantean_ledger_entries_total gauge",
+            f"atlantean_ledger_entries_total {int(aggregates['ledger_entries'])}",
+            "# HELP atlantean_telemetry_events_total Telemetry events processed by the service.",
+            "# TYPE atlantean_telemetry_events_total gauge",
+            f"atlantean_telemetry_events_total {int(aggregates['telemetry_events'])}",
+        ]
+
+        if aggregates["ledger_assets"]:
+            lines.extend(
+                [
+                    "# HELP atlantean_ledger_asset_total Aggregate ledger balance per asset.",
+                    "# TYPE atlantean_ledger_asset_total gauge",
+                ]
+            )
+            for row in aggregates["ledger_assets"]:
+                asset = escape(str(row["asset"]))
+                total = float(row["total_amount"] or 0.0)
+                lines.append(f'atlantean_ledger_asset_total{{asset="{asset}"}} {total}')
+
+        if aggregates["telemetry_types"]:
+            lines.extend(
+                [
+                    "# HELP atlantean_telemetry_event_total Events grouped by telemetry type.",
+                    "# TYPE atlantean_telemetry_event_total gauge",
+                ]
+            )
+            for row in aggregates["telemetry_types"]:
+                event_type = escape(str(row["event_type"]))
+                count = int(row["count"])
+                lines.append(
+                    f'atlantean_telemetry_event_total{{event_type="{event_type}"}} {count}'
+                )
+
+        return "\n".join(lines) + "\n"
+
+    # ------------------------------------------------------------------
+    def _collect_aggregates(self) -> dict[str, Any]:
         with self._lock:
             ladder_entries = self._connection.execute("SELECT COUNT(*) FROM ladder_scores").fetchone()[
                 0
@@ -244,29 +355,13 @@ class AtlanteanDatabase:
                 "SELECT event_type, COUNT(*) AS count FROM telemetry_events GROUP BY event_type"
             ).fetchall()
 
-        asset_totals = [
-            {"asset": row["asset"], "total": float(row["total_amount"] or 0.0)}
-            for row in ledger_assets
-        ]
-        telemetry_breakdown = [
-            {"event_type": row["event_type"], "count": int(row["count"])} for row in telemetry_types
-        ]
-
         return {
-            "generated_at": datetime.now(UTC).isoformat(),
-            "ladder": {
-                "entries": int(ladder_entries),
-                "players": int(ladder_players),
-                "top": top_players,
-            },
-            "ledger": {
-                "entries": int(ledger_entries),
-                "assets": asset_totals,
-            },
-            "telemetry": {
-                "events": int(telemetry_events),
-                "types": telemetry_breakdown,
-            },
+            "ladder_entries": ladder_entries,
+            "ladder_players": ladder_players,
+            "ledger_entries": ledger_entries,
+            "ledger_assets": ledger_assets,
+            "telemetry_events": telemetry_events,
+            "telemetry_types": telemetry_types,
         }
 
 
@@ -276,6 +371,7 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
     server_version = "AtlanteanProdServer/1.0"
     db: AtlanteanDatabase
     api_key_header = "X-Atlantean-Key"
+    admin_key_header = "X-Atlantean-Admin"
 
     def log_message(self, format: str, *args: Any) -> None:  # pragma: no cover - noisy in tests
         LOG.info("%s - %s", self.address_string(), format % args)
@@ -287,6 +383,8 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/healthz":
             return self._send_json(HTTPStatus.OK, self.db.health_summary())
+        if parsed.path == "/metrics":
+            return self._send_metrics(self.db.prometheus_metrics())
         if parsed.path == "/api/v1/ladder/top":
             params = parse_qs(parsed.query or "")
             limit = self._positive_int(params.get("limit", ["10"])[0], 1, 100)
@@ -335,6 +433,8 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
             return self._handle_ledger_record()
         if parsed.path == "/api/v1/telemetry/event":
             return self._handle_telemetry_event()
+        if parsed.path == "/api/v1/admin/purge":
+            return self._handle_admin_purge()
 
         self._send_json(HTTPStatus.NOT_FOUND, {"error": "Unknown endpoint."})
 
@@ -349,6 +449,25 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
         self._send_json(
             HTTPStatus.UNAUTHORIZED,
             {"error": "Missing or invalid Atlantean API key."},
+        )
+        return False
+
+    # ------------------------------------------------------------------
+    def _require_admin_key(self) -> bool:
+        server = getattr(self, "server")
+        admin_keys: Set[str] = getattr(server, "admin_keys", frozenset())
+        if not admin_keys:
+            self._send_json(
+                HTTPStatus.FORBIDDEN,
+                {"error": "Administrative operations are disabled on this deployment."},
+            )
+            return False
+        provided = (self.headers.get(self.admin_key_header) or "").strip()
+        if provided and provided in admin_keys:
+            return True
+        self._send_json(
+            HTTPStatus.UNAUTHORIZED,
+            {"error": "Missing or invalid Atlantean admin key."},
         )
         return False
 
@@ -415,6 +534,50 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
         self._send_json(HTTPStatus.CREATED, {"status": "recorded"})
 
     # ------------------------------------------------------------------
+    def _handle_admin_purge(self) -> None:
+        if not self._require_admin_key():
+            return
+        body = self._require_json_body({"older_than_days"})
+        if body is None:
+            return
+        days = self._positive_int(body["older_than_days"], 0, 10_000)
+        if days is None:
+            return
+
+        categories_field = body.get("categories")
+        if categories_field is None:
+            categories: list[str] = []
+        elif isinstance(categories_field, list):
+            categories = []
+            for entry in categories_field:
+                if not isinstance(entry, str):
+                    return self._send_json(
+                        HTTPStatus.BAD_REQUEST,
+                        {"error": "categories must be a list of strings"},
+                    )
+                entry = entry.strip().lower()
+                if entry:
+                    categories.append(entry)
+        else:
+            return self._send_json(
+                HTTPStatus.BAD_REQUEST,
+                {"error": "categories must be a list of strings if provided"},
+            )
+
+        cutoff = datetime.now(UTC) - timedelta(days=days)
+        try:
+            deleted = self.db.purge_records(cutoff, categories)
+        except ValueError as exc:
+            return self._send_json(HTTPStatus.BAD_REQUEST, {"error": str(exc)})
+
+        response = {
+            "status": "purged",
+            "cutoff": cutoff.isoformat(),
+            "deleted": deleted,
+        }
+        self._send_json(HTTPStatus.OK, response)
+
+    # ------------------------------------------------------------------
     def _require_json_body(self, required: set[str]) -> Optional[Dict[str, Any]]:
         length_header = self.headers.get("Content-Length")
         if length_header is None:
@@ -460,6 +623,15 @@ class AtlanteanRequestHandler(BaseHTTPRequestHandler):
         return parsed
 
     # ------------------------------------------------------------------
+    def _send_metrics(self, payload: str) -> None:
+        body = payload.encode("utf-8")
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/plain; version=0.0.4")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    # ------------------------------------------------------------------
     def _send_json(self, status: HTTPStatus, payload: Dict[str, Any]) -> None:
         encoded = json.dumps(payload).encode("utf-8")
         self.send_response(status)
@@ -478,11 +650,16 @@ class AtlanteanProdServer(ThreadingHTTPServer):
         db_path: Path,
         api_keys: Iterable[str] | None = None,
         require_auth: Optional[bool] = None,
+        admin_keys: Iterable[str] | None = None,
     ) -> None:
         self.database = AtlanteanDatabase(db_path)
         keys: Set[str] = {key.strip() for key in api_keys or [] if key and key.strip()}
         self.api_keys = frozenset(keys)
         self.require_auth = bool(self.api_keys) if require_auth is None else bool(require_auth)
+        admin_set: Set[str] = {
+            key.strip() for key in admin_keys or [] if key and key.strip()
+        }
+        self.admin_keys = frozenset(admin_set)
 
         class Handler(AtlanteanRequestHandler):
             db = self.database
@@ -513,6 +690,18 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
         help="File containing newline-delimited API keys to trust.",
     )
     parser.add_argument(
+        "--admin-key",
+        action="append",
+        dest="admin_keys",
+        default=[],
+        help="Admin key required for maintenance endpoints. Can be repeated.",
+    )
+    parser.add_argument(
+        "--admin-key-file",
+        type=Path,
+        help="File containing newline-delimited admin keys to trust.",
+    )
+    parser.add_argument(
         "--require-auth",
         choices=("auto", "yes", "no"),
         default="auto",
@@ -532,16 +721,7 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
 def resolve_api_keys(args: argparse.Namespace) -> tuple[Set[str], bool]:
     """Load API keys from CLI args and decide whether authentication is required."""
 
-    keys: Set[str] = {key.strip() for key in args.api_keys if key and key.strip()}
-    if args.api_key_file:
-        try:
-            for line in args.api_key_file.read_text().splitlines():
-                key = line.strip()
-                if key and not key.startswith("#"):
-                    keys.add(key)
-        except FileNotFoundError as exc:  # pragma: no cover - exercised via CLI
-            exc.add_note(f"API key file not found: {args.api_key_file}")
-            raise
+    keys = _load_keys(args.api_keys, args.api_key_file)
 
     if args.require_auth == "yes":
         enforce = True
@@ -552,28 +732,53 @@ def resolve_api_keys(args: argparse.Namespace) -> tuple[Set[str], bool]:
     return keys, enforce
 
 
+def _load_keys(sources: Iterable[str], file_path: Path | None) -> Set[str]:
+    """Return a cleaned set of keys from CLI arguments and optional files."""
+
+    keys: Set[str] = {key.strip() for key in sources if key and key.strip()}
+    if file_path:
+        try:
+            for line in file_path.read_text().splitlines():
+                key = line.strip()
+                if key and not key.startswith("#"):
+                    keys.add(key)
+        except FileNotFoundError as exc:  # pragma: no cover - exercised via CLI
+            exc.add_note(f"Key file not found: {file_path}")
+            raise
+    return keys
+
+
 def run_server(args: argparse.Namespace) -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     db_path = args.db
     db_path.parent.mkdir(parents=True, exist_ok=True)
     api_keys, enforce_auth = resolve_api_keys(args)
-    server = AtlanteanProdServer((args.host, args.port), db_path, api_keys=api_keys, require_auth=enforce_auth)
+    admin_keys = _load_keys(args.admin_keys, args.admin_key_file)
+    server = AtlanteanProdServer(
+        (args.host, args.port),
+        db_path,
+        api_keys=api_keys,
+        require_auth=enforce_auth,
+        admin_keys=admin_keys,
+    )
 
     if args.init_only:
         LOG.info(
-            "Database initialised at %s (auth=%s, api_keys=%s)",
+            "Database initialised at %s (auth=%s, api_keys=%s, admin_keys=%s)",
             db_path,
             "enabled" if enforce_auth else "disabled",
             len(api_keys),
+            len(admin_keys),
         )
         return
 
     LOG.info(
-        "Starting Atlantean production service on %s:%s (auth=%s, api_keys=%s)",
+        "Starting Atlantean production service on %s:%s (auth=%s, api_keys=%s, admin_keys=%s)",
         args.host,
         args.port,
         "enabled" if enforce_auth else "disabled",
         len(api_keys),
+        len(admin_keys),
     )
     try:
         server.serve_forever()

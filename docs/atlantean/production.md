@@ -162,6 +162,42 @@ players appear in the leaderboard excerpt.
 }
 ```
 
+### `GET /metrics`
+
+Exposes Prometheus-compatible gauges for health dashboards. The endpoint is
+unauthenticated so Kubernetes, Prometheus, or third-party monitors can scrape
+statistics without an API key. Metrics currently include:
+
+- `atlantean_ladder_entries_total` and `atlantean_ladder_players_total`
+- `atlantean_ledger_entries_total` and per-asset gauges via
+  `atlantean_ledger_asset_total{asset="ASSET"}`
+- `atlantean_telemetry_events_total` and per-type gauges via
+  `atlantean_telemetry_event_total{event_type="TYPE"}`
+
+Each scrape reflects the latest counts in SQLite and is safe to poll at typical
+Prometheus intervals (15–60 seconds).
+
+### `POST /api/v1/admin/purge`
+
+Removes ladder, ledger, and telemetry records older than a threshold. This
+endpoint requires both a standard API key and an admin key. Provide the payload:
+
+```json
+{
+  "older_than_days": 30,
+  "categories": ["ladder", "ledger", "telemetry"]
+}
+```
+
+- `older_than_days` is required and must be between `0` and `10000`. A value of
+  `0` purges data strictly older than the current time.
+- `categories` is optional. When omitted, all three stores are purged. Supply a
+  subset of `ladder`, `ledger`, or `telemetry` to target specific tables.
+
+The response reports how many rows were deleted per category. Requests missing a
+valid admin key receive `401 Unauthorized`; deployments that do not configure
+admin keys return `403 Forbidden` for the endpoint.
+
 ## Authentication
 
 The service includes API-key authentication so only trusted clients can submit
@@ -185,6 +221,28 @@ python3 server/atlantean_server.py \
 Clients must include the `X-Atlantean-Key` header in every API request. Missing
 or invalid keys result in `401 Unauthorized` responses, while `/healthz` remains
 open for infrastructure probes.
+
+### Admin keys
+
+Maintenance endpoints use a separate admin token list to reduce exposure. Admin
+keys can be configured alongside API keys:
+
+```bash
+python3 server/atlantean_server.py \
+  --db dist/atlantean_prod.sqlite \
+  --api-key-file ops/atlantean_keys.txt \
+  --admin-key-file ops/atlantean_admins.txt \
+  --require-auth yes
+```
+
+- `--admin-key KEY` registers a maintenance token; repeat the flag to add more.
+- `--admin-key-file PATH` loads newline-delimited tokens (supports comments and
+  blank lines).
+- Clients invoking admin endpoints must send both `X-Atlantean-Key` and
+  `X-Atlantean-Admin` headers.
+
+When no admin keys are configured, the purge endpoint is disabled to prevent
+accidental unauthenticated maintenance calls.
 
 ## Deployment notes
 

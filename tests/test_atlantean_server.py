@@ -24,17 +24,23 @@ class AtlanteanServerTestCase(unittest.TestCase):
         cls.tmp_db.parent.mkdir(parents=True, exist_ok=True)
         cls.address = cls._free_port()
         cls.api_key = "test-api-key"
+        cls.admin_key = "test-admin-key"
         cls.server = AtlanteanProdServer(
             cls.address,
             cls.tmp_db,
             api_keys={cls.api_key},
             require_auth=True,
+            admin_keys={cls.admin_key},
         )
         cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
         cls.thread.start()
         # Wait for server to be ready
         time.sleep(0.2)
         cls.auth_headers = {"X-Atlantean-Key": cls.api_key}
+        cls.admin_headers = {
+            "X-Atlantean-Key": cls.api_key,
+            "X-Atlantean-Admin": cls.admin_key,
+        }
 
     @classmethod
     def tearDownClass(cls) -> None:  # noqa: D401 - unittest API
@@ -79,6 +85,26 @@ class AtlanteanServerTestCase(unittest.TestCase):
         except HTTPError as exc:  # noqa: PERF203 - small helper
             body = exc.read().decode("utf-8")
             return exc.code, json.loads(body)
+
+    # ------------------------------------------------------------------
+    def _request_text(
+        self,
+        method: str,
+        path: str,
+        headers: dict[str, str] | None = None,
+    ) -> tuple[int, str, str]:
+        request_headers = {}
+        request_headers.update(headers or {})
+        req = Request(
+            f"http://{self.address[0]}:{self.address[1]}{path}",
+            data=None,
+            method=method,
+            headers=request_headers,
+        )
+        with urlopen(req) as response:  # noqa: S310 - test utility
+            body = response.read().decode("utf-8")
+            content_type = response.headers.get("Content-Type", "")
+            return response.status, body, content_type
 
     # ------------------------------------------------------------------
     def test_health_endpoint_initialises_cleanly(self) -> None:
@@ -229,6 +255,116 @@ class AtlanteanServerTestCase(unittest.TestCase):
         type_counts = {entry["event_type"]: entry["count"] for entry in telemetry["types"]}
         self.assertGreaterEqual(type_counts.get("match_start", 0), 1)
         self.assertGreaterEqual(type_counts.get("match_end", 0), 1)
+
+    # ------------------------------------------------------------------
+    def test_prometheus_metrics_endpoint(self) -> None:
+        # Ensure the database has a distinct asset and telemetry type for metrics output.
+        self._request(
+            "POST",
+            "/api/v1/ledger/record",
+            {
+                "player": "MetricsPilot",
+                "amount": 3.25,
+                "asset": "USDC",
+                "tx_id": "tx-metrics",
+            },
+            headers=self.auth_headers,
+        )
+        self._request(
+            "POST",
+            "/api/v1/telemetry/event",
+            {
+                "event_type": "metrics_ping",
+                "player": "MetricsPilot",
+            },
+            headers=self.auth_headers,
+        )
+
+        status, body, content_type = self._request_text("GET", "/metrics")
+        self.assertEqual(status, 200)
+        self.assertTrue(content_type.startswith("text/plain"))
+        self.assertIn("atlantean_ladder_entries_total", body)
+        self.assertIn("atlantean_ledger_entries_total", body)
+        self.assertIn("atlantean_telemetry_events_total", body)
+        self.assertIn('atlantean_ledger_asset_total{asset="USDC"}', body)
+        self.assertIn('atlantean_telemetry_event_total{event_type="metrics_ping"}', body)
+
+    # ------------------------------------------------------------------
+    def test_admin_purge_requires_admin_key(self) -> None:
+        status, payload = self._request(
+            "POST",
+            "/api/v1/admin/purge",
+            {"older_than_days": 1},
+            headers=self.auth_headers,
+        )
+        self.assertEqual(status, 401)
+        self.assertIn("error", payload)
+
+    # ------------------------------------------------------------------
+    def test_admin_purge_removes_old_records(self) -> None:
+        # Create distinct records that can be purged.
+        player = "PurgePilot"
+        self._request(
+            "POST",
+            "/api/v1/ladder/submit",
+            {"player": player, "score": 42},
+            headers=self.admin_headers,
+        )
+        self._request(
+            "POST",
+            "/api/v1/ledger/record",
+            {
+                "player": player,
+                "amount": 1.0,
+                "asset": "SOL",
+                "tx_id": "tx-purge",
+            },
+            headers=self.admin_headers,
+        )
+        self._request(
+            "POST",
+            "/api/v1/telemetry/event",
+            {"event_type": "purge_test", "player": player},
+            headers=self.admin_headers,
+        )
+
+        # Backdate the inserted rows so the purge threshold will match them.
+        cutoff = "2000-01-01 00:00:00"
+        with self.server.database._lock, self.server.database._connection:  # type: ignore[attr-defined]
+            self.server.database._connection.execute(
+                "UPDATE ladder_scores SET recorded_at = ? WHERE player = ?",
+                (cutoff, player),
+            )
+            self.server.database._connection.execute(
+                "UPDATE ledger_entries SET recorded_at = ? WHERE player = ?",
+                (cutoff, player),
+            )
+            self.server.database._connection.execute(
+                "UPDATE telemetry_events SET recorded_at = ? WHERE player = ?",
+                (cutoff, player),
+            )
+
+        status, payload = self._request(
+            "POST",
+            "/api/v1/admin/purge",
+            {"older_than_days": 1},
+            headers=self.admin_headers,
+        )
+        self.assertEqual(status, 200)
+        self.assertEqual(payload["status"], "purged")
+        deleted = payload["deleted"]
+        self.assertGreaterEqual(deleted.get("ladder", 0), 1)
+        self.assertGreaterEqual(deleted.get("ledger", 0), 1)
+        self.assertGreaterEqual(deleted.get("telemetry", 0), 1)
+
+        # Ensure records were removed.
+        status, payload = self._request(
+            "GET",
+            f"/api/v1/ledger/{player}",
+            headers=self.admin_headers,
+        )
+        self.assertEqual(status, 200)
+        self.assertFalse(payload["entries"])
 
 
 if __name__ == "__main__":  # pragma: no cover
