@@ -1,0 +1,923 @@
+# Copyright (c) 2024 by Endless Sky contributors
+#
+# Endless Sky is free software: you can redistribute it and/or modify it under the
+# terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# Endless Sky is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <https://www.gnu.org/licenses/>.
+
+outfit "Atlantean Resonance Lance"
+	category "Guns"
+	series "Atlantean Arsenal"
+	cost 320000
+	thumbnail "outfit/laser"
+	"mass" 9
+	"outfit space" -9
+	"weapon capacity" -9
+	"gun ports" -1
+	weapon
+		sprite "projectile/2x heavy laser"
+		"frame rate" 2
+		sound "heavy laser"
+		"hit effect" "heavy laser impact"
+		"inaccuracy" .2
+		"velocity" 340
+		"lifetime" 1
+		"reload" 1
+		"firing energy" 1.9
+		"firing heat" 3.8
+		"shield damage" 3.2
+		"hull damage" 4.1
+		"hit force" 5
+	description "Atlantean fireteams rely on resonance lances to project precise, continuous beams that feel more like the reticles of an MMO shooter than the scatter of a naval broadside. Tuned for accuracy and fast target acquisition, the weapon rewards pilots who think like a strike-team marksman."
+
+outfit "Atlantean Echo Capacitor"
+	category "Power"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Vanguard
+	cost 260000
+	thumbnail "outfit/large battery"
+	"mass" 26
+	"outfit space" -26
+	"energy capacity" 36000
+	"energy generation" 5.3
+	"heat generation" 3.4
+	description "Atlantean Echo Capacitors braid mythic crystals with quantum charge coils, giving fireteams MMO-style ability rotations: rapid bursts of power for class abilities, followed by a self-balancing cooldown. The lattice keeps weapons singing without drowning the ship in heat."
+
+outfit "Atlantean Aegis Lattice"
+	category "Systems"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Vanguard
+	cost 300000
+	thumbnail "outfit/large shield"
+	"mass" 32
+	"outfit space" -32
+	"shield generation" 1.15
+	"shield energy" 1.15
+	"energy consumption" .5
+	"heat generation" 2.4
+	description "Atlantean fireteams march into firefights behind shimmering aegis lattices—mythic technology that layers hardlight geometry over responsive bio-ceramic mesh. The effect feels like a Destiny raid barrier, letting squadrons tank burst damage while coordinating heroic pushes."
+
+outfitter "Atlantean Arsenal"
+	"Atlantean Resonance Lance"
+	"Atlantean Echo Capacitor"
+	"Atlantean Aegis Lattice"
+	"Atlantean Pulse Carbine"
+	"Atlantean Hydrostatic Weave"
+	"Atlantean Rift Skimmer"
+
+outfit "Atlantean Pulse Carbine"
+	category "Guns"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Vanguard
+	cost 410000
+	thumbnail "outfit/particle cannon"
+	"mass" 11
+	"outfit space" -11
+	"weapon capacity" -11
+	"gun ports" -1
+	weapon
+		sprite "projectile/plasma"
+		"frame rate" 2
+		sound "electron beam"
+		"hit effect" "heavy plasma impact"
+		"velocity" 320
+		"lifetime" 1
+		"reload" .7
+		"firing energy" 2.4
+		"firing heat" 4.6
+		"shield damage" 5.2
+		"hull damage" 3.6
+		"hit force" 9
+		"pierce" .1
+	description "Atlantean pulse carbines translate fireteam marksmanship into starship broadsides. The weapon laces mythic resonance bursts over kinetic accelerators, letting squads execute Halo-style bursts that chew through elite shields without sacrificing precision."
+
+outfit "Atlantean Hydrostatic Weave"
+	category "Systems"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Vanguard
+	cost 520000
+	thumbnail "outfit/large shield"
+	"mass" 36
+	"outfit space" -36
+	"shield generation" 1.6
+	"hull repair rate" .6
+	"energy consumption" .8
+	"heat generation" 3.4
+	"cooling" 20
+	description "Hydrostatic weave armor flexes like an MMO raid tank's barrier—liquid metal braided with coral runes that redirect energy fire into regenerative tides. Fireteams slot the weave into their ships to hold chokepoints while their DPS lines up boss phases."
+
+outfit "Atlantean Rift Skimmer"
+	category "Engines"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Vanguard
+	cost 460000
+	thumbnail "outfit/large afterburner"
+	"mass" 18
+	"outfit space" -18
+	"engine capacity" -18
+	"thrust" 3.4
+	"thrusting energy" 1.1
+	"thrusting heat" 1.6
+	"turn" 1060
+	"turning energy" .55
+	"turning heat" .95
+	"afterburner thrust" 6.4
+	"afterburner energy" 2.6
+	"afterburner heat" 3.4
+	description "Atlantean strike craft skim across spacetime by shaping tidal vortices into afterburner fins. Rift skimmers feel like Destiny blink packs scaled for corvettes—perfect for flanking maneuvers and metaverse arena duels."
+
+outfit "AquaToken Ledger"
+	category "Systems"
+	series "Atlantean Metaverse"
+	licenses
+		Atlantean Vanguard
+	cost 0
+	thumbnail "outfit/small battery"
+	"mass" 1
+	"outfit space" -1
+	"energy consumption" .1
+	description "Every Vanguard pilot now maintains an AquaToken ledger—an encrypted crypto wallet that threads through the Atlantean metaverse. Holding a ledger grants access to exclusive raid content and the right to trade mythic-grade firearms."
+
+outfit "AquaToken Cache"
+	category "Systems"
+	series "Atlantean Metaverse"
+	cost 0
+	thumbnail "outfit/unknown artifact"
+	"mass" 0
+	"outfit space" 0
+	"energy consumption" 0
+	description "A secured cache of AquaTokens, the Atlantean crypto currency used to buy fireteam gear inside the metaverse exchange. Possessing one proves you've conquered sanctioned strike simulations."
+
+outfit "Atlantean Vanguard License"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "Formal documentation that you have been initiated into the Atlantean Vanguard. The license binds you to the Leviathan Protocol strike program and authorizes purchases from the Sovereignty's Arsenal."
+
+outfit "Atlantean Metaverse Exchange License"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "Credentials issued to fireteam pilots who have synchronized their AquaToken ledgers with the Atlantica Citadel. Holding this license permits access to exchange-grade mythic gear and crypto trades."
+
+outfit "Atlantean Solana Bridge Clearance"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "Clearance granted after completing the validator sync that links the Atlantean ledger to Solana mirrors. It authorizes the installation of bridge uplinks and cross-metaverse cash outs."
+
+outfit "Atlantean Vanguard Rank II License"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "A rank crest emblazoned on your Vanguard dossier after passing the Veteran ascension trial. It signals eligibility for Mythic fusion rifles, arena thrusters, and other Rank II fireteam gear."
+
+outfit "Atlantean Vanguard Rank III License"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "The Sovereignty's highest strike accreditation, awarded to pilots who complete the Mythic ascension rite. It unlocks bastion bulwarks and other apex-grade Atlantean technology."
+
+outfit "Solana Bridge Uplink"
+	category "Systems"
+	series "Atlantean Metaverse"
+	licenses
+		Atlantean Metaverse Exchange
+		Atlantean Solana Bridge
+	cost 0
+	thumbnail "outfit/small core"
+	"mass" 1
+	"outfit space" -1
+	"energy consumption" .2
+	"scan interference" .1
+	description "An encrypted uplink that routes AquaToken ledgers through a Solana validator mirror. The bridge confirms that every cache you earn exists on-chain, letting Vanguard captains liquidate rewards or import external balances straight into the metaverse outfitter."
+
+outfit "Atlantean Mythic Fusion Rifle"
+	category "Guns"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Vanguard Rank II
+	cost 690000
+	thumbnail "outfit/particle cannon"
+	"mass" 13
+	"outfit space" -13
+	"weapon capacity" -13
+	"gun ports" -1
+	weapon
+		sprite "projectile/plasma"
+		"frame rate" 3
+		sound "electron beam"
+		"hit effect" "heavy plasma impact"
+		"velocity" 360
+		"lifetime" 1
+		"reload" .55
+		"firing energy" 3.2
+		"firing heat" 5.8
+		"shield damage" 7.8
+		"hull damage" 5.1
+		"hit force" 18
+		"pierce" .25
+	description "Fused from raid-core artifacts and arena telemetry, the mythic fusion rifle fires precision burst bolts that feel like Halo's battle rifle and Destiny's linear fusion supers rolled together. Only ranked Vanguards can stabilize the cascading recoil."
+
+outfit "Atlantean Bastion Bulwark"
+	category "Systems"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Vanguard Rank III
+	cost 740000
+	thumbnail "outfit/large shield"
+	"mass" 48
+	"outfit space" -48
+	"shield generation" 3.2
+	"shield energy" 1.8
+	"hull repair rate" 1.2
+	"energy consumption" 1.9
+	"heat generation" 4.4
+	"cooling" 36
+	description "The bastion bulwark braids three aegis lattices with metaverse choir amplifiers, turning Vanguard tanks into WoW-style raid anchors. Triggered off squad calls, the barrier flares to absorb entire arena barrages before releasing restorative tides."
+
+outfit "Atlantean Arena Thruster"
+	category "Engines"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Vanguard Rank II
+	cost 530000
+	thumbnail "outfit/large afterburner"
+	"mass" 16
+	"outfit space" -16
+	"engine capacity" -16
+	"thrust" 4.0
+	"thrusting energy" 1.2
+	"thrusting heat" 1.6
+	"turn" 1320
+	"turning energy" .66
+	"turning heat" 1.1
+	"afterburner thrust" 8.4
+	"afterburner energy" 3.2
+	"afterburner heat" 4.1
+	"reverse thrust" 1.1
+	description "Arena thrusters splice liminal blink data into analog fins, letting Atlantean pilots strafe like Call of Duty pros while chaining Destiny-style dodge cooldowns."
+
+outfitter "Atlantean Auction House"
+	"Atlantean Mythic Fusion Rifle"
+	"Atlantean Bastion Bulwark"
+	"Atlantean Arena Thruster"
+	"Atlantean Sovereign Rail"
+	"Atlantean Chorus Harness"
+	"Atlantean Liminal Drive"
+	"Solana Bridge Uplink"
+
+outfit "Atlantean Sovereign Rail"
+	category "Guns"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Metaverse Exchange
+	cost 0
+	thumbnail "outfit/railgun"
+	"mass" 15
+	"outfit space" -15
+	"weapon capacity" -15
+	"gun ports" -1
+	weapon
+		sprite "projectile/railgun"
+		"frame rate" 2
+		sound "heavy railgun"
+		"hit effect" "rail impact"
+		"velocity" 400
+		"lifetime" 1
+		"reload" .6
+		"firing energy" 3.1
+		"firing heat" 5.4
+		"shield damage" 6.2
+		"hull damage" 7.8
+		"hit force" 16
+		"pierce" .25
+	description "Redeemed through AquaToken smart-contracts, the Sovereign Rail fuses mythic harmonics with rail accelerators. Fireteams deploy it as their pinnacle DPS rifle—precision bursts that feel like a Halo sniper rifle inside a raid boss phase."
+
+outfit "Atlantean Chorus Harness"
+	category "Systems"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Metaverse Exchange
+	cost 0
+	thumbnail "outfit/large shield"
+	"mass" 42
+	"outfit space" -42
+	"shield generation" 2.2
+	"shield energy" 1.4
+	"hull repair rate" .9
+	"energy consumption" 1.4
+	"heat generation" 3.8
+	"cooling" 30
+	"cloak" .5
+	description "The chorus harness layers choir-field amplifiers over an Aegis core, letting metaverse fireteams rotate tank cooldowns like MMO legends. The rig listens to squad comms and spikes resilience when allies trigger supers."
+
+outfit "Atlantean Liminal Drive"
+	category "Engines"
+	series "Atlantean Arsenal"
+	licenses
+		Atlantean Metaverse Exchange
+	cost 0
+	thumbnail "outfit/large engine"
+	"mass" 22
+	"outfit space" -22
+	"engine capacity" -22
+	"thrust" 4.1
+	"thrusting energy" 1.3
+	"thrusting heat" 1.9
+	"turn" 1180
+	"turning energy" .65
+	"turning heat" 1.1
+	"afterburner thrust" 7.8
+	"afterburner energy" 3.0
+	"afterburner heat" 4.0
+	"jump speed" 3.6
+	"jump fuel" 90
+	description "Atlantean liminal drives weave wormhole mathematics into afterburner geometries, blinking strike craft between cover points like Destiny warlocks darting across arenas. Only AquaToken-certified pilots can anchor the feedback loops safely."
+
+
+ship "Hawk" "Hawk (Atlantean Vanguard)"
+	outfits
+		"Atlantean Resonance Lance" 2
+		"Atlantean Echo Capacitor"
+		"Atlantean Aegis Lattice"
+		"LP036a Battery Pack"
+		"D41-HY Shield Generator"
+		"Small Radar Jammer"
+
+		"Greyhound Plasma Thruster"
+		"Greyhound Plasma Steering"
+		"Hyperdrive"
+
+ship "Hawk" "Hawk (Atlantean Vanguard Support)"
+	outfits
+		"Atlantean Resonance Lance"
+		"Heavy Laser"
+		"Atlantean Echo Capacitor"
+		"Atlantean Aegis Lattice"
+		"LP072a Battery Pack"
+		"D67-TM Shield Generator"
+		"Scram Drive"
+
+		"Greyhound Plasma Thruster"
+		"Impala Plasma Steering"
+
+ship "Falcon" "Falcon (Atlantean Strider)"
+	outfits
+		"Atlantean Sovereign Rail" 2
+		"Atlantean Pulse Carbine"
+		"Atlantean Chorus Harness"
+		"Atlantean Liminal Drive"
+		"AquaToken Ledger"
+		"LP144a Battery Pack"
+		"Huskarl Shield Generator"
+		"Quantum Keystone"
+
+		"Greyhound Plasma Thruster"
+		"Impala Plasma Steering"
+		"Scram Drive"
+
+ship "Falcon" "Falcon (Atlantean Chorus Anchor)"
+	outfits
+		"Atlantean Sovereign Rail"
+		"Atlantean Pulse Carbine"
+		"Atlantean Chorus Harness"
+		"Atlantean Echo Capacitor"
+		"Atlantean Liminal Drive"
+		"AquaToken Ledger"
+		"LP288a Battery Pack"
+		"Huskarl Shield Generator"
+		"Large Radar Jammer"
+
+		"Greyhound Plasma Thruster"
+		"Impala Plasma Steering"
+		"Jump Drive"
+
+
+fleet "Atlantean Fireteam"
+	government "Atlantean Sovereignty"
+	names "atlantean"
+	personality heroic vigilant escort
+	variant 3
+		"Hawk (Atlantean Vanguard)"
+		"Hawk (Atlantean Vanguard Support)"
+	variant 2
+		"Hawk (Atlantean Vanguard)" 2
+		"Hawk (Atlantean Vanguard Support)"
+	variant 1
+		"Falcon (Atlantean Strider)"
+	variant 1
+		"Falcon (Atlantean Chorus Anchor)"
+
+fleet "Atlantean Strike Battalion"
+	government "Atlantean Sovereignty"
+	names "atlantean"
+	personality heroic fearless escort
+	strength 1800
+	variant 2
+		"Falcon (Atlantean Strider)"
+		"Falcon (Atlantean Chorus Anchor)"
+	variant 1
+		"Falcon (Atlantean Strider)" 2
+		"Hawk (Atlantean Vanguard Support)"
+
+fleet "Atlantean War Game Cell"
+	government "Atlantean War Games"
+	names "atlantean"
+	personality heroic swarm target
+	strength 600
+	variant 1
+		"Hawk (Atlantean Vanguard)"
+		"Hawk (Atlantean Vanguard Support)"
+	variant 1
+		"Falcon (Atlantean Strider)"
+	variant 1
+		"Falcon (Atlantean Chorus Anchor)"
+
+fleet "Atlantean War Game Phalanx"
+	government "Atlantean War Games"
+	names "atlantean"
+	personality heroic fearless target
+	strength 1100
+	variant 1
+		"Falcon (Atlantean Strider)"
+		"Falcon (Atlantean Chorus Anchor)"
+	variant 1
+		"Falcon (Atlantean Strider)"
+		"Hawk (Atlantean Vanguard Support)"
+
+phrase "atlantean"
+	word
+		"Azure"
+		"Mythic"
+		"Tidal"
+		"Leviathan"
+		"Echo"
+		"Aurora"
+		"Resonant"
+		"Luminous"
+		"Cerulean"
+		"Chronicle"
+	word
+		" "
+	word
+		"Spear"
+		"Phalanx"
+		"Vanguard"
+		"Citadel"
+		"Oracle"
+		"Strider"
+		"Guard"
+		"Seeker"
+		"Harbinger"
+		"Legion"
+
+mission "Atlantean Prologue: Leviathan Signal"
+	name "Follow the Leviathan Signal"
+	description "An Atlantean operative has pinged you from New Boston, promising fireteam-grade technology if you rendezvous at Earth."
+	landing
+	priority
+	source "New Boston"
+	destination "Earth"
+	to offer
+		not "Atlantean Prologue: Leviathan Signal: offered"
+	on offer
+		set "Atlantean Prologue: Leviathan Signal: offered"
+		conversation
+			`A translucent sigil flickers across your wrist-comm the moment you step into the New Boston concourse. The glyph is a stylized trident overlaying a shooter crosshair, rotating until it aligns with your vitals.`
+			`			A hooded figure materializes from the crowd. "Vanguard candidate?" she asks, her voice modulated like overlapping choirs. "We've tracked your combat telemetry. Atlantis Sovereignty wants you on the Leviathan protocol."`
+			choice
+				`			"What is the Leviathan protocol?"`
+					goto intel
+				`			"I'm not interested."`
+					decline
+			label intel
+			`			"Mythic tech meets tactical precision," she says, handing you a compact datavault. "Fireteams. Roles. Supers. The MMO you wanted to live in, only it's real and it's ours."`
+			`			"Dock at Earth. The Citadel choir will sync your neural lattice and slot you into a squad."`
+			choice
+				`			"I'm in."`
+					accept
+				`			"Sounds cultish."`
+					decline
+	on accept
+		log "Factions" "Atlantean Sovereignty" `A clandestine human-descended society hidden in Sol's oceans, blending mythic relics with bleeding-edge combat telemetry. They organize their pilots into MMO-like fireteams, using hardlight weapons and living data rituals to dominate close-quarters battles.`
+		log "Campaigns" "Leviathan Protocol" `Accepted an invitation to rendezvous with Atlantean handlers on Earth and get briefed on the Leviathan protocol—an MMOFPS-style strike operation promising mythic gear.`
+
+	on complete
+		conversation
+			`The Atlantica Citadel rises from Earth's Atlantic like a cathedral forged of water and starlight. Inside, choir-beacons sync to your heartbeat while technicians coil luminous cabling around your ship schematic.`
+			`			"You don't pilot alone anymore," intones Prefect Naia. "Every strike is a saga. Every headshot a stanza. Take this resonance lance and echo capacitor; they will tune you to the squad's tempo."`
+		outfit "Atlantean Resonance Lance"
+		outfit "Atlantean Echo Capacitor"
+		set "license: Atlantean Vanguard"
+		set "Atlantean Rank: Initiate"
+		set "Atlantean Level" 1
+		set "Atlantean XP" 1
+		set "Atlantean Prologue: Leviathan Signal: done"
+		event "Atlantean Arsenal Access"
+		log "Campaigns" "Leviathan Protocol" `Synced with the Citadel choir on Earth. Received resonance gear and an Atlantean Vanguard license, plus access to an Arsenal outfitter hidden within the capital's hangars.`
+
+mission "Atlantean Prologue: Field Drill"
+	name "Field Drill: Citadel Fireteam"
+	description "Carry an Atlantean strike cell to Luna and synchronize your fireteam tactics en route."
+	landing
+	priority
+	source "Earth"
+	destination "Luna"
+	passengers 3
+	to offer
+		has "Atlantean Prologue: Leviathan Signal: done"
+		not "Atlantean Prologue: Field Drill: offered"
+	on offer
+		set "Atlantean Prologue: Field Drill: offered"
+		conversation
+			`Three Atlantean operatives stride aboard, armor gleaming with tidal glyphs. "We're your strike cell," says Fireteam Leader Sarai. "We drill like Halo ODSTs, but our scripts are mythic chants. Let's sync our cooldown rotations."`
+		choice
+			`			"Ready up. We move like a squad."`
+				accept
+			`			"I need more prep time."`
+				decline
+	on accept
+		log "Campaigns" "Leviathan Protocol" `Escorting an Atlantean fireteam to Luna for strike simulations that blend Spartans' aggression with MMO raid choreography.`
+
+	on complete
+		conversation
+			`Luna's dark side becomes a training ground, dotted with glowing pylons and holographic Leviathans. The fireteam fans out, calling shots with rhythmic chants. Your HUD now displays class abilities, combo timers, and squad resilience metrics.`
+			`			Sarai clasps your arm. "You're synced. Take an Aegis lattice—your squad needs a tank anchor when we breach the deep vaults."`
+		outfit "Atlantean Aegis Lattice"
+		"Atlantean XP" ++
+		set "Atlantean Prologue: Field Drill: done"
+		set "Atlantean Arsenal Access"
+		log "Campaigns" "Leviathan Protocol" `Completed the Citadel field drill at Luna and outfitted the ship with an Atlantean Aegis lattice to anchor future raids.`
+
+event "Atlantean Arsenal Access"
+	planet Earth
+		add outfitter "Atlantean Arsenal"
+	system Sol
+		add fleet "Atlantean Fireteam" 1200
+
+mission "Atlantean Prologue: Crypto Forge"
+	name "Sync with the Crypto Forge"
+	description "Link your neural lattice to the Atlantean crypto forge and mint an AquaToken ledger for future gear upgrades."
+	landing
+	priority
+	source "Earth"
+	to offer
+		has "Atlantean Prologue: Field Drill: done"
+		not "Atlantean Prologue: Crypto Forge: offered"
+	on offer
+		set "Atlantean Prologue: Crypto Forge: offered"
+		conversation
+			`Prefect Naia escorts you into a chamber ringed with holographic marketplaces. "The forge awaits," she intones. "Your fireteam fights across realities now. Tokens, ledgers, drops—all synchronized."`
+			choice
+				`                       "Initiate the sync."`
+					accept
+				`                       "This sounds risky."`
+					decline
+	on accept
+		log "Campaigns" "Leviathan Protocol" `Initiated the crypto forge sync to integrate AquaToken smart contracts with the fireteam loadout network.`
+
+	on complete
+		conversation
+			`The forge floods your HUD with cascading runes and shooter reticles. A phantom marketplace unfurls—rows of weapons and armor pulsing in time with raid chants.`
+			`                       Naia places a crystal trident core in your palm. "Ledger minted. Spend wisely—tokens amplify the sagas we write together."`
+		outfit "AquaToken Ledger"
+		"Atlantean XP" ++
+		set "license: Atlantean Metaverse Exchange"
+		set "Atlantean Prologue: Crypto Forge: done"
+		event "Atlantean Metaverse Exchange Access"
+		log "Campaigns" "Leviathan Protocol" `Synchronized with the Atlantean crypto forge, receiving an AquaToken ledger and access to metaverse exchange contracts.`
+
+mission "Atlantean Simulation: Token Run"
+	name "Simulation Run: Earn AquaTokens"
+	description "Escort Atlantean e-athletes to Mars for a metaverse strike simulation that mints fresh AquaTokens."
+	landing
+	repeat
+	source "Earth"
+	destination "Mars"
+	passengers 4
+	payment 0
+	to offer
+		has "Atlantean Prologue: Crypto Forge: done"
+	on offer
+		conversation
+			`Four pilots in holo-linked armor salute. "We need a ride to the Mars arenas," says Strategist Cael. "Simulated leviathans, live fire, crypto bounties. You in?"`
+			choice
+				`                       "Launching for Mars."`
+					accept
+				`                       "Not today."`
+					decline
+	on accept
+		log "Campaigns" "Leviathan Protocol" `Escorting an Atlantean strike cell to Mars to grind metaverse simulations for AquaToken payouts.`
+
+	on complete
+		conversation
+			`The Mars arena flickers with cascading hardlight enemies. As your squad clears the final wave, your ledger pings—a fresh AquaToken cache minted from the simulation contract.`
+		"Atlantean XP" ++
+		outfit "AquaToken Cache"
+		log "Campaigns" "Leviathan Protocol" `Completed a Mars simulation run and banked an AquaToken cache ready to spend on mythic tech.`
+
+mission "Atlantean Exchange: Sovereign Rail"
+	name "Spend AquaTokens: Sovereign Rail"
+	description "Redeem an AquaToken cache at Earth to unlock a Sovereign Rail sniper platform."
+	landing
+	repeat
+	source "Earth"
+	destination "Earth"
+	payment 0
+	to offer
+		has "license: Atlantean Metaverse Exchange"
+		has outfit "AquaToken Cache"
+	on offer
+		conversation
+			`Exchange clerics project a sniper rifle silhouette above your ledger. "One cache for a Sovereign Rail," they chorus. "This shot threads myth and marksmanship."`
+			choice
+				`                       "Authorize the trade."`
+					accept
+				`                       "I'll wait."`
+					decline
+	on complete
+		conversation
+			`A surge of light reconfigures your ship schematic. "Headshots become prophecy," the clerics vow as the Sovereign Rail locks into place.`
+		outfit "AquaToken Cache" -1
+		outfit "Atlantean Sovereign Rail"
+		log "Campaigns" "Leviathan Protocol" `Redeemed AquaTokens at the metaverse exchange for a Sovereign Rail sniper platform.`
+
+mission "Atlantean Exchange: Chorus Harness"
+	name "Spend AquaTokens: Chorus Harness"
+	description "Trade an AquaToken cache for a raid-tier Chorus Harness defensive system."
+	landing
+	repeat
+	source "Earth"
+	destination "Earth"
+	payment 0
+	to offer
+		has "license: Atlantean Metaverse Exchange"
+		has outfit "AquaToken Cache"
+	on offer
+		conversation
+			`Choir-drone avatars circle you. "Tank anchors earn priority," they chant. "Convert a cache and we will braid a Chorus Harness into your hull."`
+			choice
+				`                       "Forge the harness."`
+					accept
+				`                       "Maybe later."`
+					decline
+	on complete
+		conversation
+			`Your shields thrum as luminous choir script binds around the hull. "Hold the line," the avatars whisper. "Your squad will never forget."`
+		outfit "AquaToken Cache" -1
+		outfit "Atlantean Chorus Harness"
+		log "Campaigns" "Leviathan Protocol" `Spent AquaTokens to weave a Chorus Harness, turning the ship into a raid-tier bulwark.`
+
+mission "Atlantean Exchange: Liminal Drive"
+	name "Spend AquaTokens: Liminal Drive"
+	description "Exchange an AquaToken cache for a liminal drive that blinks through battlefields."
+	landing
+	repeat
+	source "Earth"
+	destination "Earth"
+	payment 0
+	to offer
+		has "license: Atlantean Metaverse Exchange"
+		has outfit "AquaToken Cache"
+	on offer
+		conversation
+			`Metaverse navigators sketch warp sigils in the air. "Blink striders earn caches," they grin. "Authorize the swap and we sling a liminal drive into your frame."`
+			choice
+				`                       "Install it."`
+					accept
+				`                       "Hold the tokens."`
+					decline
+	on complete
+		conversation
+			`Space folds as the liminal drive syncs with your controls. "Stride the metaverse," the navigators cheer. "No flank will ever surprise you again."`
+		outfit "AquaToken Cache" -1
+		outfit "Atlantean Liminal Drive"
+		log "Campaigns" "Leviathan Protocol" `Converted AquaTokens into a liminal drive, unlocking blink-fast repositioning for future raids.`
+
+event "Atlantean Metaverse Exchange Access"
+	system Sol
+		add fleet "Atlantean Strike Battalion" 1600
+
+mission "Atlantean Solana Bridge"
+	name "Bridge the Ledger to Solana"
+	description "Complete the validator sync in Earth's Citadel to route AquaToken ledgers through a Solana mirror."
+	landing
+	priority
+	source "Earth"
+	to offer
+		has "Atlantean Prologue: Crypto Forge: done"
+		not "Atlantean Solana Bridge: offered"
+	on offer
+		set "Atlantean Solana Bridge: offered"
+		conversation
+			`Prefect Naia calls you back to the crypto forge. "We can broadcast every ledger hash to a Solana validator mirror," she says. "It locks our drops to public consensus—and lets our pilots cash out across the metaverse."`
+			choice
+				`                       "Link me into the Solana bridge."`
+					accept
+				`                       "I'm not ready for blockchains."`
+					decline
+	on accept
+		log "Campaigns" "Leviathan Protocol" `Queued to integrate the AquaToken ledger with a Solana validator mirror.`
+
+	on complete
+		conversation
+			`A cathedral of validators spins to life around you, each rune echoing Solana consensus slots. Your HUD confirms that every cache in your ledger now mirrors on-chain."
+		outfit "Solana Bridge Uplink"
+		"Atlantean XP" ++
+		set "license: Atlantean Solana Bridge"
+		set "Atlantean Solana Bridge: done"
+		log "Campaigns" "Leviathan Protocol" `Completed the Solana bridge sync, enabling on-chain AquaToken validation and cross-metaverse payouts."
+
+mission "Atlantean Solana Exchange"
+	name "Cash Out AquaTokens"
+	description "Use the Solana bridge in Earth orbit to liquidate an AquaToken cache for off-chain credits."
+	landing
+	repeat
+	source "Earth"
+	destination "Earth"
+	payment 0
+	to offer
+		has "Atlantean Solana Bridge: done"
+		has outfit "AquaToken Cache"
+	on offer
+		conversation
+			`Validator clerics project exchange rates across your HUD. "Authorize cache liquidation?" they ask. "Solana consensus already holds the signature."`
+			choice
+				`                       "Execute the cash-out."`
+					accept
+				`                       "I'll hold the cache."`
+					decline
+	on complete
+		conversation
+			`A surge of credit markers floods your ledger while the cache hash finalizes on-chain. "Transfer settled," the clerics confirm. "Spend it on Earth or beam it across the metaverse."`
+		outfit "AquaToken Cache" -1
+		payment 180000
+		"Atlantean XP" ++
+		log "Campaigns" "Leviathan Protocol" `Liquidated an AquaToken cache through the Solana mirror for immediate credit payouts."
+
+mission "Atlantean Auction House Activation"
+	name "Unlock the Atlantean Auction House"
+	description "Authorize the metaverse auction house so Vanguard pilots can bid on mythic gear drops."
+	landing
+	priority
+	source "Earth"
+	to offer
+		has "Atlantean Prologue: Crypto Forge: done"
+		not "Atlantean Auction House Access: done"
+	on offer
+		conversation
+			`Broker-oracles beckon you into a chamber of cascading loot tables. "Authorize the auction daemon," they intone. "Let Vanguards spend ledgers and credits on rotating drops."`
+			choice
+				`                       "Bring the auction house online."`
+					accept
+				`                       "Keep it offline for now."`
+					decline
+	on complete
+		conversation
+			`The auction hall roars awake as listings ripple across your HUD—mythic rifles, bastion bulwarks, rare thrusters. "Bid wisely," the brokers warn. "The metaverse never sleeps."`
+		"Atlantean XP" ++
+		set "Atlantean Auction House Access: done"
+		event "Atlantean Auction House Online"
+		log "Campaigns" "Leviathan Protocol" `Authorized the Atlantean auction house, unlocking rotating premium outfits for ranked pilots."
+
+mission "Atlantean Ascension: Veteran Trial"
+	name "Ascension Trial: Veteran Rank"
+	description "Present your combat telemetry and AquaToken proof to earn Atlantean Vanguard Rank II."
+	landing
+	source "Earth"
+	to offer
+		has "Atlantean Rank: Initiate"
+		not "Atlantean Rank: Veteran"
+		"Atlantean XP" >= 6
+		has outfit "AquaToken Cache"
+	on offer
+		conversation
+			`Fireteam adjudicators review your raid clears. "You've survived enough simulations," they concede. "Pay a cache into the rite and ascend."`
+			choice
+				`                       "I'm ready to ascend."`
+					accept
+				`                       "I'll gather more proof."`
+					decline
+	on complete
+		conversation
+			`Choir pylons flare as your combat log engraves into the metaverse ledger. "Veteran rank confirmed," the adjudicators announce. "Your squad now expects you to lead control pushes."`
+		outfit "AquaToken Cache" -1
+		"Atlantean XP" ++
+		set "Atlantean Level" 2
+		set "Atlantean Rank: Veteran"
+		set "license: Atlantean Vanguard Rank II"
+		log "Campaigns" "Leviathan Protocol" `Completed the Veteran ascension trial and earned Atlantean Vanguard Rank II access."
+
+mission "Atlantean Ascension: Mythic Rite"
+	name "Ascension Rite: Mythic Rank"
+	description "Conquer high-tier arena footage and tithe a cache to achieve Atlantean Vanguard Rank III."
+	landing
+	source "Earth"
+	to offer
+		has "Atlantean Rank: Veteran"
+		not "Atlantean Rank: Mythic"
+		"Atlantean XP" >= 10
+		has outfit "AquaToken Cache"
+	on offer
+		conversation
+			`The Citadel choir surrounds you with raid ghosts. "Only Mythic cells survive these echoes," Naia warns. "Offer your cache and let the metaverse decide."`
+			choice
+				`                       "I embrace the rite."`
+					accept
+				`                       "I need more training."`
+					decline
+	on complete
+		conversation
+			`Your HUD blossoms with Mythic glyphs as Solana validators etch your record. "Rank III confirmed," the choir proclaims. "Lead the Leviathan when the next saga begins."`
+		outfit "AquaToken Cache" -1
+		"Atlantean XP" ++
+		"Atlantean XP" ++
+		set "Atlantean Level" 3
+		set "Atlantean Rank: Mythic"
+		set "license: Atlantean Vanguard Rank III"
+		log "Campaigns" "Leviathan Protocol" `Surpassed the Mythic ascension rite and unlocked Atlantean Vanguard Rank III privileges."
+
+mission "Atlantean Arena: Control Uplink"
+	name "Arena Control: Mars"
+	description "Queue into the Mars control arena, eliminate the opposing cell, and return to Earth for payout."
+	job
+	repeat
+	source
+		planet "Earth"
+	to offer
+		has "Atlantean Rank: Initiate"
+		has "Atlantean Prologue: Crypto Forge: done"
+		random < 45
+	npc kill
+		government "Atlantean War Games"
+		personality heroic staying target
+		system
+			name "Sol"
+			planet "Mars"
+		fleet
+			names "atlantean"
+			variant
+				"Hawk (Atlantean Vanguard)"
+				"Hawk (Atlantean Vanguard Support)"
+			variant
+				"Falcon (Atlantean Strider)"
+		dialog `Arena casters broadcast your control victory. Return to Earth to cash out.`
+	on visit
+		dialog `You can't report a control win until the Mars arena cell is defeated.`
+	on complete
+		payment 220000
+		outfit "AquaToken Cache"
+		"Atlantean XP" ++
+		log "Campaigns" "Leviathan Protocol" `Won a Mars control arena match against an Atlantean war-game cell.`
+
+mission "Atlantean Arena: Mythic Slayer"
+	name "Arena Slayer: Titan"
+	description "Battle a Mythic-ranked war-game squad near Titan and bring home the scoreboard rewards."
+	job
+	repeat
+	source
+		planet "Earth"
+	to offer
+		has "Atlantean Rank: Veteran"
+		random < 30
+	npc kill
+		government "Atlantean War Games"
+		personality heroic staying target nemesis
+		system
+			name "Sol"
+			planet "Titan"
+		fleet
+			names "atlantean"
+			variant
+				"Falcon (Atlantean Strider)"
+				"Falcon (Atlantean Chorus Anchor)"
+			variant
+				"Falcon (Atlantean Strider)"
+				"Hawk (Atlantean Vanguard Support)"
+		dialog `Mythic-ranked announcers hail your slayer performance. Touch down on Earth to collect the spoils.`
+	on visit
+		dialog `Mythic slayer payouts require proof of victory near Titan. Keep fighting!`
+	on complete
+		payment 350000
+		outfit "AquaToken Cache"
+		outfit "AquaToken Cache"
+		"Atlantean XP" ++
+		"Atlantean XP" ++
+		log "Campaigns" "Leviathan Protocol" `Crushed a Mythic-ranked war-game squad in the Titan arena slayer queue.`
+
+event "Atlantean Auction House Online"
+	planet Earth
+		add outfitter "Atlantean Auction House"
+
