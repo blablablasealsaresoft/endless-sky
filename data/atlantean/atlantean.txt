@@ -208,12 +208,6 @@ outfit "Atlantean Talent Grid Clearance"
         thumbnail "outfit/license"
         description "Authorization sigils proving a pilot has threaded every column of the Atlantean talent grid. The clearance unlocks Paragon-grade synergy uplinks that expect coordinated raid loadouts."
 
-outfit "Atlantean Triarch Clearance"
-        category "Licenses"
-        series "Atlantean Licenses"
-        thumbnail "outfit/license"
-        description "A Triarch commission etched into the Leviathan protocol after harmonizing all three specialization abilities. The clearance authorizes access to Triarch command archives and meta-synergy modules reserved for raid leaders."
-
 outfit "Atlantean Talent: Tidewall Anchor"
         category "Systems"
         series "Atlantean Talent Matrix"
@@ -538,24 +532,6 @@ outfit "Atlantean Ability Module: Chorus Resonance Field"
         "heat generation" .18
         description "Chorus resonance fields entangle allied systems in a temporary hymn. When activated, the module radiates support energy that mimics Halo support supers—accelerating recharge cycles and lending shared shields to every linked fireteam hull."
 
-outfit "Atlantean Ability Module: Triarch Command Matrix"
-        category "Systems"
-        series "Atlantean Ability Modules"
-        licenses
-                Atlantean Triarch Clearance
-        cost 780000
-        thumbnail "outfit/large core"
-        "mass" 5
-        "outfit space" -5
-        "weapon capacity" 2
-        "energy capacity" 6200
-        "energy generation" .7
-        "shield generation" .4
-        "hull repair rate" .2
-        "cooling" 9
-        "heat generation" .2
-        description "Triarch command matrices braid the Tempest, Bastion, and Chorus ability scripts into a single raid-leader cooldown. Triggering the module pulses weapon surge, bulwark shielding, and harmonic regen at once so Leviathan captains can call Blizzard-grade hero moments on demand."
-
 outfit "Atlantean Synergy Mod: Triad Confluence"
         category "Systems"
         series "Atlantean Talent Synergies"
@@ -572,23 +548,6 @@ outfit "Atlantean Synergy Mod: Triad Confluence"
         "weapon capacity" 3
         "cooling" 14
         description "Triad confluence uplinks weave Tempest, Bastion, and Chorus crests into a single raid leader's node. Only Leviathan-siege veterans can stabilize the mod, which amplifies every role simultaneously so coordinated fireteams hit Blizzard-grade execution."
-
-outfit "Atlantean Synergy Mod: Triarch Nexus"
-        category "Systems"
-        series "Atlantean Talent Synergies"
-        licenses
-                Atlantean Triarch Clearance
-        cost 560000
-        thumbnail "outfit/large core"
-        "mass" 6
-        "outfit space" -6
-        "weapon capacity" 2
-        "energy generation" .55
-        "shield energy" .55
-        "energy capacity" 4800
-        "cooling" 11
-        "heat generation" .18
-        description "Triarch nexus mods synchronize every specialization crest into a single command lattice. The node routes Tempest overdrives, Bastion pulses, and Chorus fields through one conductor, empowering callouts that merge Halo fireteam tempo with WoW raid macro precision."
 
 outfit "Atlantean Relic: Torrent Cannon"
         category "Guns"
@@ -662,6 +621,28 @@ outfit "Solana Bridge Uplink"
         series "Atlantean Metaverse"
         licenses
                 Atlantean Metaverse Exchange
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "Clearance granted after completing the validator sync that links the Atlantean ledger to Solana mirrors. It authorizes the installation of bridge uplinks and cross-metaverse cash outs."
+
+outfit "Atlantean Vanguard Rank II License"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "A rank crest emblazoned on your Vanguard dossier after passing the Veteran ascension trial. It signals eligibility for Mythic fusion rifles, arena thrusters, and other Rank II fireteam gear."
+
+outfit "Atlantean Vanguard Rank III License"
+	category "Licenses"
+	series "Atlantean Licenses"
+	thumbnail "outfit/license"
+	description "The Sovereignty's highest strike accreditation, awarded to pilots who complete the Mythic ascension rite. It unlocks bastion bulwarks and other apex-grade Atlantean technology."
+
+outfit "Solana Bridge Uplink"
+	category "Systems"
+	series "Atlantean Metaverse"
+	licenses
+		Atlantean Metaverse Exchange
 		Atlantean Solana Bridge
 	cost 0
 	thumbnail "outfit/small core"
@@ -788,10 +769,6 @@ outfitter "Atlantean Leviathan Reliquary"
         "Atlantean Relic: Torrent Cannon"
         "Atlantean Relic: Ward Conduit"
 
-outfitter "Atlantean Triarch Archive"
-        "Atlantean Ability Module: Triarch Command Matrix"
-        "Atlantean Synergy Mod: Triarch Nexus"
-
 outfitter "Atlantean Auction Rotation: Alpha"
         "Atlantean Relic: Torrent Cannon"
         "Atlantean Talent: Resonant Volley"
@@ -803,6 +780,13 @@ outfitter "Atlantean Auction Rotation: Beta"
 outfitter "Atlantean Auction Rotation: Gamma"
         "Atlantean Relic: Torrent Cannon"
         "Atlantean Talent: Liminal Slipstream"
+	"Atlantean Mythic Fusion Rifle"
+	"Atlantean Bastion Bulwark"
+	"Atlantean Arena Thruster"
+	"Atlantean Sovereign Rail"
+	"Atlantean Chorus Harness"
+	"Atlantean Liminal Drive"
+	"Solana Bridge Uplink"
 
 outfit "Atlantean Sovereign Rail"
 	category "Guns"
@@ -981,29 +965,20 @@ ship "Falcon" "Falcon (Atlantean Chorus Marshal)"
                 "Greyhound Plasma Thruster"
                 "Impala Plasma Steering"
                 "Jump Drive"
+	outfits
+		"Atlantean Sovereign Rail"
+		"Atlantean Pulse Carbine"
+		"Atlantean Chorus Harness"
+		"Atlantean Echo Capacitor"
+		"Atlantean Liminal Drive"
+		"AquaToken Ledger"
+		"LP288a Battery Pack"
+		"Huskarl Shield Generator"
+		"Large Radar Jammer"
 
-
-ship "Falcon" "Falcon (Atlantean Triarch Marshal)"
-        outfits
-                "Atlantean Tempest Resonator"
-                "Atlantean Bastion Rampart"
-                "Atlantean Chorus Harmonic Spire"
-                "Atlantean Ability Module: Triarch Command Matrix"
-                "Atlantean Synergy Mod: Triarch Nexus"
-                "Atlantean Liminal Drive"
-                "AquaToken Ledger"
-                "Atlantean Talent: Resonant Volley"
-                "Atlantean Talent: Tidewall Anchor"
-                "Atlantean Talent: Choir Catalyst"
-                "Atlantean Talent Node: Resonant Overwatch"
-                "Atlantean Talent Node: Bulwark Command"
-                "Atlantean Talent Node: Choir Orchestrator"
-                "LP288a Battery Pack"
-                "Huskarl Shield Generator"
-
-                "Greyhound Plasma Thruster"
-                "Impala Plasma Steering"
-                "Jump Drive"
+		"Greyhound Plasma Thruster"
+		"Impala Plasma Steering"
+		"Jump Drive"
 
 
 fleet "Atlantean Fireteam"
@@ -1073,26 +1048,21 @@ fleet "Atlantean Leviathan Cohort"
         variant 1
                 "Falcon (Atlantean Bastion Marshal)"
                 "Falcon (Atlantean Chorus Marshal)"
-
-fleet "Atlantean Triarch Cohort"
-        government "Atlantean Triarch Cohort"
-        names "atlantean"
-        personality heroic nemesis staying
-        strength 2600
-        variant 1
-                "Falcon (Atlantean Triarch Marshal)"
-                "Falcon (Atlantean Tempest Marshal)"
-        variant 1
-                "Falcon (Atlantean Triarch Marshal)"
-                "Falcon (Atlantean Bastion Marshal)"
-        variant 1
-                "Falcon (Atlantean Triarch Marshal)"
-                "Falcon (Atlantean Chorus Marshal)"
+	government "Atlantean War Games"
+	names "atlantean"
+	personality heroic fearless target
+	strength 1100
+	variant 1
+		"Falcon (Atlantean Strider)"
+		"Falcon (Atlantean Chorus Anchor)"
+	variant 1
+		"Falcon (Atlantean Strider)"
+		"Hawk (Atlantean Vanguard Support)"
 
 phrase "atlantean"
-        word
-                "Azure"
-                "Mythic"
+	word
+		"Azure"
+		"Mythic"
 		"Tidal"
 		"Leviathan"
 		"Echo"
@@ -1409,6 +1379,15 @@ mission "Atlantean Auction House Activation"
                 has "Atlantean Prologue: Crypto Forge: done"
                 not "Atlantean Auction House Access: done"
         on offer
+	name "Unlock the Atlantean Auction House"
+	description "Authorize the metaverse auction house so Vanguard pilots can bid on mythic gear drops."
+	landing
+	priority
+	source "Earth"
+	to offer
+		has "Atlantean Prologue: Crypto Forge: done"
+		not "Atlantean Auction House Access: done"
+	on offer
 		conversation
 			`Broker-oracles beckon you into a chamber of cascading loot tables. "Authorize the auction daemon," they intone. "Let Vanguards spend ledgers and credits on rotating drops."`
 			choice
@@ -1677,83 +1656,6 @@ mission "Atlantean Specialization Ability: Chorus Resonance"
                 "Atlantean XP" ++
                 log "Campaigns" "Leviathan Protocol" `Wove the Chorus resonance field, earning an active support cooldown for metaverse fireteams.`
 
-mission "Atlantean Triarch Rite: Harmonize"
-        name "Harmonize the Triarch Crest"
-        description "Channel AquaToken charge on Earth to fuse all three specialization scripts into a Triarch commission."
-        landing
-        source "Earth"
-        to offer
-                has "Atlantean Specialization Ability: Tempest"
-                has "Atlantean Specialization Ability: Bastion"
-                has "Atlantean Specialization Ability: Chorus"
-                has "license: Atlantean Vanguard Rank V"
-                has outfit "AquaToken Cache"
-                not "Atlantean Triarch Rite: Harmonize: done"
-        on offer
-                conversation
-                        `Prefect Naia greets you within the Leviathan column. "You've imprinted every specialization," she notes. "Spend a cache to harmonize them and the Triarch commission will recognize you as raid command."`
-                        choice
-                                `                       "Harmonize the crest."`
-                                        accept
-                                `                       "I'll gather more charge."`
-                                        decline
-        on accept
-                outfit "AquaToken Cache" -1
-        on complete
-                conversation
-                        `Triarch glyphs ignite as your crest threads the three ability scripts together. "Commission granted," Naia declares. "From now on, the Leviathan answers your unified callouts."`
-                outfit "Atlantean Triarch Clearance"
-                set "Atlantean Triarch Rite: Harmonize: done"
-                "Atlantean XP" ++
-                log "Campaigns" "Leviathan Protocol" `Harmonized the Tempest, Bastion, and Chorus abilities into a Triarch crest, earning command clearance for the Leviathan raid.`
-
-mission "Atlantean Triarch Operation: Command Matrix"
-        name "Calibrate the Triarch Command Matrix"
-        description "Lead a Triarch strike near Callisto, defeat the command cohort, and stabilize the unified ability module."
-        landing
-        source "Earth"
-        to offer
-                has "Atlantean Triarch Rite: Harmonize: done"
-                has outfit "AquaToken Cache"
-                not "Atlantean Triarch Operation: Command Matrix: done"
-        on offer
-                conversation
-                        `"Triarch cohorts are stress-testing unified callouts near Callisto," Naia warns. "Carry a cache, anchor their command matrix, and bring the stabilized module back to Earth."`
-                        choice
-                                `                       "Deploy the Triarch cohort."`
-                                        accept
-                                `                       "I'll prepare further."`
-                                        decline
-        on accept
-                outfit "AquaToken Cache" -1
-        npc kill
-                government "Atlantean Triarch Cohort"
-                personality heroic staying target nemesis
-                system
-                        name "Sol"
-                        planet "Callisto"
-                fleet
-                        names "atlantean"
-                        variant
-                                "Falcon (Atlantean Triarch Marshal)"
-                                "Falcon (Atlantean Tempest Marshal)"
-                        variant
-                                "Falcon (Atlantean Triarch Marshal)"
-                                "Falcon (Atlantean Chorus Marshal)"
-                dialog `Triarch cohorts broadcast your harmonized callouts across the system. Return to Earth with the stabilized module.`
-        on visit
-                dialog `Defeat the Triarch cohort near Callisto before the command matrix can be stabilized.`
-        on complete
-                conversation
-                        `The Triarch matrix dims as technicians lock its waveform to your crest. "Command module stabilized," Naia confirms. "We'll seed the archive so you can restock the module as needed."`
-                outfit "Atlantean Ability Module: Triarch Command Matrix"
-                outfit "Atlantean Synergy Mod: Triarch Nexus"
-                set "Atlantean Triarch Operation: Command Matrix: done"
-                event "Atlantean Triarch Archive Online"
-                "Atlantean XP" ++
-                "Atlantean XP" ++
-                log "Campaigns" "Leviathan Protocol" `Crushed a Triarch command cohort near Callisto, stabilized the unified command matrix, and unlocked the Triarch archive on Earth.`
-
 mission "Atlantean Auction: Bid Relay"
         name "Auction Bid Relay"
         description "Race a sealed bid to the Jovian relay before the auction window closes."
@@ -1850,6 +1752,16 @@ mission "Atlantean Ascension: Veteran Trial"
         description "Present your combat telemetry and AquaToken proof to earn Atlantean Vanguard Rank II."
         landing
         source "Earth"
+		"Atlantean XP" ++
+		set "Atlantean Auction House Access: done"
+		event "Atlantean Auction House Online"
+		log "Campaigns" "Leviathan Protocol" `Authorized the Atlantean auction house, unlocking rotating premium outfits for ranked pilots."
+
+mission "Atlantean Ascension: Veteran Trial"
+	name "Ascension Trial: Veteran Rank"
+	description "Present your combat telemetry and AquaToken proof to earn Atlantean Vanguard Rank II."
+	landing
+	source "Earth"
 	to offer
 		has "Atlantean Rank: Initiate"
 		not "Atlantean Rank: Veteran"
@@ -2284,6 +2196,8 @@ mission "Solana Mirror: Heartbeat Ping"
 
 mission "Atlantean Arena: Control Uplink"
         name "Arena Control: Mars"
+mission "Atlantean Arena: Control Uplink"
+	name "Arena Control: Mars"
 	description "Queue into the Mars control arena, eliminate the opposing cell, and return to Earth for payout."
 	job
 	repeat
@@ -2402,10 +2316,6 @@ event "Atlantean Leviathan Reliquary Online"
         planet Titan
                 add outfitter "Atlantean Leviathan Reliquary"
 
-event "Atlantean Triarch Archive Online"
-        planet Earth
-                add outfitter "Atlantean Triarch Archive"
-
 event "Atlantean Auction Rotation Beta"
         date += 6
         planet Earth
@@ -2435,4 +2345,6 @@ event "Atlantean Auction Depth Pulse"
                 add outfitter "Atlantean Auction Rotation: Beta"
         planet Callisto
                 add outfitter "Atlantean Auction Rotation: Gamma"
+	planet Earth
+		add outfitter "Atlantean Auction House"
 

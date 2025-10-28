@@ -14,7 +14,6 @@ This document summarizes the Atlantean Sovereignty content that currently exists
 - **Talent Grid & Clearance:** Four Paragon-only talent grid missions now consume AquaToken caches to install Bulwark, Overwatch, Gambit, and Orchestrator nodes before registering a grid clearance that unlocks the Grid Command synergy uplink.【F:data/atlantean/atlantean.txt†L337-L412】【F:data/atlantean/atlantean.txt†L1350-L1496】
 - **Specialization & Rank V Trials:** A Callisto briefing unlocks Tempest/Bastion/Chorus crest missions on Earth, and conquering the Leviathan siege near Titan awards the `Atlantean Vanguard Rank V` license plus the Triad confluence mod and Leviathan Reliquary access.【F:data/atlantean/atlantean.txt†L1278-L1450】【F:data/atlantean/atlantean.txt†L1808-L1896】【F:data/atlantean/atlantean.txt†L606-L630】
 - **Active Specialization Abilities:** Rank V specialists can invest AquaToken caches in new Earth missions to imprint Tempest Overdrive, Bastion Bulwark Pulse, or Chorus Resonance Field modules, permanently unlocking matching ability outfitters for restocking.【F:data/atlantean/atlantean.txt†L1510-L1592】【F:data/atlantean/atlantean.txt†L2215-L2237】
-- **Triarch Command Clearance:** Harmonizing all three specialization abilities now grants the `Atlantean Triarch Clearance`, unlocks a Callisto strike against the Triarch cohort, and rewards the Triarch command matrix plus nexus mod while opening a dedicated archive.【F:data/atlantean/atlantean.txt†L1680-L1708】【F:data/atlantean/atlantean.txt†L1710-L1755】【F:data/atlantean/atlantean.txt†L2405-L2407】
 
 ### Gear & Economy
 - **Atlantean Arsenal:** Multiple resonance weapons, defensive systems, engines, and support outfits emulate Halo/Destiny fireteam roles for capital ships, and the new Mythic Fusion Rifle/Arena Thruster/Bastion Bulwark extend that catalog for higher ranks.【F:data/atlantean/atlantean.txt†L14-L236】
@@ -25,18 +24,17 @@ This document summarizes the Atlantean Sovereignty content that currently exists
 - **Synergy Mods & Flash Bids:** Rank IV unlocks additional talent implants, synergy modules, and the Synergy Archive outfitter, and flash-bid courier jobs force rapid deliveries to keep the auction economy volatile.【F:data/atlantean/atlantean.txt†L186-L238】【F:data/atlantean/atlantean.txt†L1038-L1184】
 - **Market Depth Streaming:** Brokers can calibrate a market-depth beacon that streams live listings to the flagship and unlock repeatable sweeps to Callisto, which in turn pulse new rotation stock across Titan and Callisto exchanges.【F:data/atlantean/atlantean.txt†L162-L185】【F:data/atlantean/atlantean.txt†L1498-L1547】【F:data/atlantean/atlantean.txt†L1705-L1709】
 - **Specialization Armories & Reliquary:** Choosing a crest toggles Tempest, Bastion, or Chorus outfitters on Earth, ability events add apex/citadel/anthem vendors for the new active modules, and the Leviathan Reliquary stocks Triad confluence mods plus raid relics for Rank V pilots.【F:data/atlantean/atlantean.txt†L640-L748】【F:data/atlantean/atlantean.txt†L2215-L2237】【F:data/atlantean/atlantean.txt†L2044-L2063】
-- **Triarch Archive:** Completing the Triarch command operation grants access to the `Atlantean Triarch Archive`, where raid leaders can restock the Triarch command matrix and nexus synergy module after harmonizing their crest.【F:data/atlantean/atlantean.txt†L1710-L1755】【F:data/atlantean/atlantean.txt†L791-L793】【F:data/atlantean/atlantean.txt†L2405-L2407】
 
 ### Fleets & Encounters
 - **Fireteam Deployments:** Hawk and Falcon variants use the new gear, while Strike Battalion fleets patrol Sol once the player engages with the exchange storyline.【F:data/atlantean/atlantean.txt†L216-L314】【F:data/atlantean/atlantean.txt†L525-L534】
 - **Arena PvP Simulations:** Repeatable control and slayer jobs spawn `Atlantean War Games` fleets near Mars and Titan, paying out caches, XP, and credits to mimic Halo/CoD multiplayer queues inside Endless Sky's single-player framework.【F:data/atlantean/atlantean.txt†L804-L880】【F:data/governments.txt†L2322-L2345】
 - **Leviathan Siege Encounters:** New marshal ship variants form the `Atlantean Leviathan Cohort` government for Rank V trials and weekly ordeals, delivering raid-like boss fights with premium loot resets.【F:data/atlantean/atlantean.txt†L793-L870】【F:data/atlantean/atlantean.txt†L1756-L1896】【F:data/governments.txt†L2347-L2366】
-- **Triarch Command Gauntlet:** A fresh `Atlantean Triarch Cohort` government flies Triarch marshal variants around Callisto for the command matrix mission, extending the raid ladder beyond the Leviathan siege.【F:data/atlantean/atlantean.txt†L986-L1090】【F:data/atlantean/atlantean.txt†L1710-L1755】【F:data/governments.txt†L2383-L2405】
 
 ## Remaining MMO Pillars
 
 The latest pass adds simulated leveling, PvP queues, and an auction outfitter, but several Blizzard-scale expectations still require future work:
 - **Deep Talent Trees & Roles:** Specialization crests, synergy mods, and the new ability modules exist, yet there are still no multi-tier talent trees or interactive cooldown systems beyond outfitting choices.
+- **Deep Talent Trees & Roles:** Ascension ranks and synergy mods exist, yet there are no branching talent trees, cooldown management mechanics, or class-defining ability rotations beyond passive implants.
 - **Player-Driven Economy:** Listings, flash bids, and rotation events simulate dynamic supply, but there is still no direct player-to-player market depth, pricing AI, or persistent inventory tracking.
 - **True Online Multiplayer:** Endless Sky remains single-player; the arena runs are scripted encounters that only emulate PvP scoreboard pacing.
 - **External Blockchain Hooks:** The Solana bridge mirrors caches in lore and now includes validator sync and heartbeat missions that gate production traffic behind a sync token, but there is still no actual network connectivity, wallet integration, or signature validation beyond mission scripting.【F:data/atlantean/atlantean.txt†L175-L185】【F:data/atlantean/atlantean.txt†L1550-L1595】
@@ -44,3 +42,11 @@ The latest pass adds simulated leveling, PvP queues, and an auction outfitter, b
 ## Next Steps to Reach the Vision
 
 Future milestones should focus on full talent trees with active abilities, persistent market simulations with long-lived listings, and, if desired, genuine networking or external API calls to back the Solana flavor with real connectivity. Those layers would elevate the Atlantean experience from a rich single-player saga to the fully fledged metaverse MMOFPS envisioned.
+- **Deep Talent Trees & Roles:** Ascension ranks gate gear, yet there are no class specializations, role-based skill trees, or ability rotations beyond flavor text.
+- **Player-Driven Economy:** The auction house sells curated drops rather than facilitating player listings, bids, or supply/demand dynamics.
+- **True Online Multiplayer:** Endless Sky remains single-player; the arena runs are scripted encounters that only emulate PvP scoreboard pacing.
+- **External Blockchain Hooks:** The Solana bridge mirrors caches in lore, but there is no actual network connectivity, wallet integration, or signature validation beyond mission text.
+
+## Next Steps to Reach the Vision
+
+Future milestones should focus on deeper progression systems (talents, loadout synergies), reactive economic tools (player listings, bidding windows), and, if desired, genuine networking or external API calls to back the Solana flavor with real connectivity. Those layers would elevate the Atlantean experience from a rich single-player saga to the fully fledged metaverse MMOFPS envisioned.
