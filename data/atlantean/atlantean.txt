@@ -157,7 +157,41 @@ outfit "AquaToken Cache"
         "mass" 0
         "outfit space" 0
         "energy consumption" 0
-        description "A secured cache of AquaTokens, the Atlantean crypto currency used to buy fireteam gear inside the metaverse exchange. Possessing one proves you've conquered sanctioned strike simulations."
+        description "A secured cache of AquaTokens, the Atlantean crypto currency used to buy fireteam gear inside the metaverse exchange. Possessing one proves you've conquered sanctioned strike operations."
+
+outfit "Atlantean Bid Sentinel Key"
+        category "Systems"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/data cube"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "A cryptographic sentinel key that grants access to Atlantean bid-monitor tooling. Raid leaders leverage the key to freeze manipulative bids, reopen stalled listings, and keep the metaverse exchange as reactive as a Blizzard-grade auction house."
+
+outfit "Atlantean Player Listing Docket"
+        category "Systems"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Metaverse Exchange
+        cost 0
+        thumbnail "outfit/small core"
+        "mass" 1
+        "outfit space" -1
+        "energy consumption" .05
+        description "A registry shard that proves you maintain an active player-run listing on the Atlantean exchange. The docket lets brokers surface your offers during timed bid windows and syncs settlements through the Solana mirror."
+
+outfit "Atlantean Settlement Ledger"
+        category "Systems"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Metaverse Exchange
+        cost 0
+        thumbnail "outfit/unknown artifact"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" .05
+        description "Settlement ledgers record the close of an Atlantean player exchange window, archiving filled orders, escrow balances, and Solana confirmations. Holding one certifies you've shepherded a live player marketplace session to completion."
 
 outfit "Atlantean Market Depth Beacon"
         category "Systems"
@@ -184,6 +218,90 @@ outfit "Solana Validator Sync Token"
         "energy consumption" .05
         description "A cryptographic signature proving your Solana bridge uplink has completed a validator handshake. The token stores the latest block height and shard attestation so the Atlantean forge knows your ledger is mirrored on-chain."
 
+outfit "Solana API Bridge Module"
+        category "Systems"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Solana Bridge
+        cost 0
+        thumbnail "outfit/small core"
+        "mass" 1
+        "outfit space" -1
+        "energy consumption" .1
+        description "An auxiliary bridge module that emulates Solana's JSON-RPC endpoints inside the Atlantean forge. Installing it proves your flagship can issue production-grade API calls even when validators are light-minutes away."
+
+outfit "Solana Heartbeat Archive"
+        category "Systems"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/small battery"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" .05
+        description "Immutable telemetry logs captured after a successful Solana API handshake. Atlantean architects audit the archive to verify your uplink relayed slot confirmations and maintained consensus latency targets."
+
+outfit "Solana External Relay Log"
+        category "Systems"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/data cube"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" .05
+        description "An authenticated bundle of Solana RPC responses captured during an external relay drill. The log proves your bridge proxied live network traffic, recorded signatures, and returned verifiable slot proofs to the Atlantean forge."
+
+outfit "Atlantean Metaverse Season Pass"
+        category "Systems"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Triarch Clearance
+        cost 0
+        thumbnail "outfit/unknown artifact"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" .05
+        description "A metaverse passport that binds your Triarch dossier to the Atlantean season track. Holding the pass registers your clan for rotating raid challenges, seasonal vendor stock, and Solana-tracked reward drops."
+
+outfit "Atlantean Season Data Cache"
+        category "Systems"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/unknown artifact"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "Encrypted performance data captured during seasonal gauntlets. The cache stores scoreboard telemetry and Solana attestations that vendors redeem for Triarch-grade relics."
+
+outfit "Atlantean Season Artifact: Leviathan Emblem"
+        category "Systems"
+        series "Atlantean Season Relics"
+        licenses
+                Atlantean Season Clearance
+        cost 620000
+        thumbnail "outfit/large shield"
+        "mass" 14
+        "outfit space" -14
+        "shield generation" .9
+        "shield energy" .4
+        "hull repair rate" .25
+        "energy consumption" .35
+        "cooling" 10
+        description "A Leviathan emblem that channels seasonal raid prestige into tangible defenses. The relic weaves Atlantean bulwark patterns with Solana consensus timers, granting tank captains an MMO-style cooldown that steadies the line during siege phases."
+
+outfit "Atlantean Season Artifact: Chorus Prism"
+        category "Power"
+        series "Atlantean Season Relics"
+        licenses
+                Atlantean Season Clearance
+        cost 580000
+        thumbnail "outfit/large battery"
+        "mass" 9
+        "outfit space" -9
+        "energy capacity" 6800
+        "energy generation" 1.2
+        "heat generation" .7
+        description "A harmonic prism forged for Chorus specialists who top seasonal scoreboards. The artifact stabilizes burst windows and keeps resonance weapons charged so raid callers can orchestrate Halo-like precision pushes without overheating."
+
 outfit "Atlantean Vanguard License"
 	category "Licenses"
 	series "Atlantean Licenses"
@@ -207,6 +325,24 @@ outfit "Atlantean Talent Grid Clearance"
         series "Atlantean Licenses"
         thumbnail "outfit/license"
         description "Authorization sigils proving a pilot has threaded every column of the Atlantean talent grid. The clearance unlocks Paragon-grade synergy uplinks that expect coordinated raid loadouts."
+
+outfit "Atlantean Triarch Clearance"
+        category "Licenses"
+        series "Atlantean Licenses"
+        thumbnail "outfit/license"
+        description "A Triarch commission etched into the Leviathan protocol after harmonizing all three specialization abilities. The clearance authorizes access to Triarch command archives and meta-synergy modules reserved for raid leaders."
+
+outfit "Atlantean Season Clearance"
+        category "Licenses"
+        series "Atlantean Licenses"
+        thumbnail "outfit/license"
+        description "Season-long credentials issued to Triarch captains who bankroll the Leviathan's metaverse campaigns. The clearance lets you purchase seasonal relics, claim weekly rewards, and direct exchange windows toward clan objectives."
+
+outfit "Atlantean Talent Tree Access"
+        category "Licenses"
+        series "Atlantean Licenses"
+        thumbnail "outfit/license"
+        description "Access keys that unlock the Atlantean talent tree lattice. The authorization binds triarch raid captains to advanced node research and enables archivists to imprint deeper loadout synergies."
 
 outfit "Atlantean Talent: Tidewall Anchor"
         category "Systems"
@@ -1648,7 +1784,7 @@ mission "Atlantean Prologue: Field Drill"
 			`			"I need more prep time."`
 				decline
 	on accept
-		log "Campaigns" "Leviathan Protocol" `Escorting an Atlantean fireteam to Luna for strike simulations that blend Spartans' aggression with MMO raid choreography.`
+		log "Campaigns" "Leviathan Protocol" `Escorting an Atlantean fireteam to Luna for strike rotations that blend Spartans' aggression with MMO raid choreography.`
 
 	on complete
 		conversation
@@ -1698,9 +1834,9 @@ mission "Atlantean Prologue: Crypto Forge"
 		event "Atlantean Metaverse Exchange Access"
 		log "Campaigns" "Leviathan Protocol" `Synchronized with the Atlantean crypto forge, receiving an AquaToken ledger and access to metaverse exchange contracts.`
 
-mission "Atlantean Simulation: Token Run"
-	name "Simulation Run: Earn AquaTokens"
-	description "Escort Atlantean e-athletes to Mars for a metaverse strike simulation that mints fresh AquaTokens."
+mission "Atlantean Strike: Token Run"
+	name "Strike Run: Earn AquaTokens"
+	description "Escort Atlantean e-athletes to Mars for a metaverse strike operation that mints fresh AquaTokens."
 	landing
 	repeat
 	source "Earth"
@@ -1711,21 +1847,21 @@ mission "Atlantean Simulation: Token Run"
 		has "Atlantean Prologue: Crypto Forge: done"
 	on offer
 		conversation
-			`Four pilots in holo-linked armor salute. "We need a ride to the Mars arenas," says Strategist Cael. "Simulated leviathans, live fire, crypto bounties. You in?"`
+			`Four pilots in holo-linked armor salute. "We need a ride to the Mars arenas," says Strategist Cael. "Live leviathans, live fire, crypto bounties. You in?"`
 			choice
 				`                       "Launching for Mars."`
 					accept
 				`                       "Not today."`
 					decline
 	on accept
-		log "Campaigns" "Leviathan Protocol" `Escorting an Atlantean strike cell to Mars to grind metaverse simulations for AquaToken payouts.`
+		log "Campaigns" "Leviathan Protocol" `Escorting an Atlantean strike cell to Mars to grind metaverse operations for AquaToken payouts.`
 
 	on complete
 		conversation
-			`The Mars arena flickers with cascading hardlight enemies. As your squad clears the final wave, your ledger pings—a fresh AquaToken cache minted from the simulation contract.`
+			`The Mars arena flickers with cascading hardlight enemies. As your squad clears the final wave, your ledger pings—a fresh AquaToken cache minted from the live-fire contract.`
 		"Atlantean XP" ++
 		outfit "AquaToken Cache"
-		log "Campaigns" "Leviathan Protocol" `Completed a Mars simulation run and banked an AquaToken cache ready to spend on mythic tech.`
+		log "Campaigns" "Leviathan Protocol" `Completed a Mars strike run and banked an AquaToken cache ready to spend on mythic tech.`
 
 mission "Atlantean Exchange: Sovereign Rail"
 	name "Spend AquaTokens: Sovereign Rail"
@@ -3104,7 +3240,7 @@ mission "Atlantean Ascension: Veteran Trial"
 		has outfit "AquaToken Cache"
 	on offer
 		conversation
-			`Fireteam adjudicators review your raid clears. "You've survived enough simulations," they concede. "Pay a cache into the rite and ascend."`
+			`Fireteam adjudicators review your raid clears. "You've survived enough live rotations," they concede. "Pay a cache into the rite and ascend."`
 			choice
 				`                       "I'm ready to ascend."`
 					accept
@@ -3201,13 +3337,13 @@ mission "Atlantean Talent Matrix: Synergy Calibration"
 				decline
 	on complete
 		conversation
-			`Harmonic grids light the chamber as your talents pulse in unison. "Calibration complete," the tacticians cheer. "We've opened the synergy archive and seeded you with prototype mods."`
+			`Harmonic grids light the chamber as your talents pulse in unison. "Calibration complete," the tacticians cheer. "We've opened the synergy archive and seeded you with production-grade mods."`
 		outfit "Atlantean Synergy Mod: Aegis Chorus"
 		outfit "Atlantean Synergy Mod: Slipstream Volley"
 		"Atlantean XP" ++
 		set "Atlantean Synergy Archive: done"
 		event "Atlantean Synergy Archive Online"
-		log "Campaigns" "Leviathan Protocol" `Calibrated the Leviathan talent matrix, unlocking the Atlantean synergy archive and prototype mods.`
+		log "Campaigns" "Leviathan Protocol" `Calibrated the Leviathan talent matrix, unlocking the Atlantean synergy archive and production-grade mods.`
 mission "Atlantean Talent Grid: Bulwark Command"
         name "Talent Grid Node: Bulwark Command"
         description "Thread the Leviathan column with Atlantean tacticians on Earth to unlock the Bulwark Command node."
