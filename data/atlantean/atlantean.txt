@@ -159,6 +159,126 @@ outfit "AquaToken Cache"
         "energy consumption" 0
         description "A secured cache of AquaTokens, the Atlantean crypto currency used to buy fireteam gear inside the metaverse exchange. Possessing one proves you've conquered sanctioned strike operations."
 
+outfit "Atlantean Scorecaster Relay"
+        category "Systems"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Vanguard Rank V
+        cost 380000
+        thumbnail "outfit/surveillance pod"
+        "mass" 3
+        "outfit space" -3
+        "energy consumption" .4
+        description "Scorecaster relays transcode live arena telemetry into the Atlantean metaverse backbone. Installing one gives your bridge a production-grade scoreboard overlay that syncs every broadcast with Solana-backed attestations."
+
+outfit "Atlantean Score Pulse Node"
+        category "Systems"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Vanguard Rank VI
+        cost 520000
+        thumbnail "outfit/unknown artifact"
+        "mass" 4
+        "outfit space" -4
+        "energy consumption" .5
+        description "Pulse nodes amplify scorecaster relays with predictive analytics. Rank VI commanders slot them beside their relays to pre-cache opponent builds, feed raid leaders live stat breakdowns, and keep the metaverse leaderboard reactive in real time."
+
+outfit "Atlantean Score Telemetry Packet"
+        category "Special"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/unknown artifact"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "Encrypted scoreboard telemetry captured from sanctioned Atlantean arena wings. Delivering the packet to a scorecaster node certifies the results across the metaverse without any simulated stand-ins."
+
+outfit "Atlantean Ladder Beacon"
+        category "Systems"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Vanguard Rank VI
+        cost 540000
+        thumbnail "outfit/surveillance pod"
+        "mass" 4
+        "outfit space" -4
+        "energy consumption" .45
+        description "Atlantean ladder beacons stitch matchmade telemetry into the Sovereignty's live ranking lattice. Installing one gives your bridge persistent access to production-ready ladders, instant promotion alerts, and Solana-signed placement proofs."
+
+outfit "Atlantean Ladder Relay Capsule"
+        category "Special"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/unknown artifact"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "A sealed relay capsule carrying ranked-ladder telemetry, secured by Solana signature anchors. Producers only issue capsules to fireteams escorting live promotion updates between Earth, Titan, and Callisto."
+
+outfit "Atlantean Ladder Access Shard"
+        category "Special"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/data cube"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "Encrypted proof that your fireteam closed an Atlantean ladder promotion window. Shards slot into the ladder terminal to schedule finals, unlock raid-tier payouts, and broadcast standings without any simulated placeholders."
+
+outfit "Atlantean Ladder Champion Mark"
+        category "Special"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/unknown artifact"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "A championship insignia issued after delivering a full Atlantean ladder finals broadcast. The mark certifies your crew completed the production ladder circuit and authorizes premium matchmade gauntlet rotations."
+
+outfit "Atlantean Tournament Charter"
+        category "Special"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Vanguard Rank VI
+        cost 0
+        thumbnail "outfit/data cube"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "A live tournament charter co-signed by Atlantean producers and Solana auditors. Holding it authorizes you to schedule championship brackets, publish real-time results, and command dedicated tournament escorts across the Sovereignty."
+
+outfit "Atlantean Tournament Control Node"
+        category "Systems"
+        series "Atlantean Metaverse"
+        licenses
+                Atlantean Vanguard Rank VI
+        cost 580000
+        thumbnail "outfit/surveillance pod"
+        "mass" 5
+        "outfit space" -5
+        "energy consumption" .55
+        description "Tournament control nodes fuse ladder telemetry, live scorecaster feeds, and Solana attestations into one broadcast console. Commanders install them to schedule brackets from the bridge and push authenticated standings to every Atlantean arena."
+
+outfit "Atlantean Tournament Signal Packet"
+        category "Special"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/unknown artifact"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "Encrypted seed data that opens an Atlantean championship broadcast. Producers hand packets to chartered wings so they can stream qualifiers and semifinals without any simulated placeholders."
+
+outfit "Atlantean Tournament Trophy"
+        category "Special"
+        series "Atlantean Metaverse"
+        cost 0
+        thumbnail "outfit/unknown artifact"
+        "mass" 0
+        "outfit space" 0
+        "energy consumption" 0
+        description "A Solana-signed holographic crest awarded for delivering a live Atlantean tournament finals broadcast. It unlocks premium relic rotations and certifies your crew as production champions."
+
 outfit "Atlantean Bid Sentinel Key"
         category "Systems"
         series "Atlantean Metaverse"
@@ -1230,6 +1350,16 @@ outfitter "Atlantean Auction House"
         "Atlantean Liminal Drive"
         "Solana Bridge Uplink"
 
+outfitter "Atlantean Scorecaster Terminal"
+        "Atlantean Scorecaster Relay"
+        "Atlantean Score Pulse Node"
+
+outfitter "Atlantean Ladder Terminal"
+        "Atlantean Ladder Beacon"
+
+outfitter "Atlantean Tournament Archive"
+        "Atlantean Tournament Control Node"
+
 outfitter "Atlantean Talent Matrix"
         "Atlantean Talent: Tidewall Anchor"
         "Atlantean Talent: Resonant Volley"
@@ -1690,6 +1820,36 @@ fleet "Atlantean Matchmade Wing"
                 "Falcon (Atlantean Chorus Marshal)"
         variant 1
                 "Hawk (Atlantean Vanguard)"
+                "Hawk (Atlantean Vanguard Support)"
+
+fleet "Atlantean Ladder Cohort"
+        government "Atlantean Ladder Cohort"
+        names "atlantean"
+        personality heroic nemesis escort
+        strength 3400
+        variant 1
+                "Falcon (Atlantean Nexus Marshal)"
+                "Falcon (Atlantean Tempest Marshal)"
+        variant 1
+                "Falcon (Atlantean Nexus Marshal)"
+                "Falcon (Atlantean Bastion Marshal)"
+        variant 1
+                "Falcon (Atlantean Nexus Marshal)"
+                "Falcon (Atlantean Chorus Marshal)"
+
+fleet "Atlantean Tournament Cohort"
+        government "Atlantean Tournament Directorate"
+        names "atlantean"
+        personality heroic nemesis escort
+        strength 3600
+        variant 1
+                "Falcon (Atlantean Nexus Marshal)"
+                "Falcon (Atlantean Triarch Marshal)"
+        variant 1
+                "Falcon (Atlantean Tempest Marshal)"
+                "Falcon (Atlantean Bastion Marshal)"
+        variant 1
+                "Falcon (Atlantean Chorus Marshal)"
                 "Hawk (Atlantean Vanguard Support)"
 
 phrase "atlantean"
@@ -3912,6 +4072,234 @@ mission "Atlantean Arena: Live Scrimmage"
                 "Atlantean XP" ++
                 log "Campaigns" "Leviathan Protocol" `Cleared a live-synced arena scrimmage with a matchmade Atlantean wing, broadcasting the scoreboard to the metaverse.`
 
+mission "Atlantean Arena: Scorecaster Activation"
+        name "Arena Scorecaster Activation"
+        description "Ferry the matchmade telemetry core to Titan so Atlantean producers can light the live scorecaster grid."
+        deadline 4
+        source
+                planet "Earth"
+        destination
+                planet "Titan"
+        to offer
+                has "Atlantean Arena: Live Scrimmage: done"
+                not "Atlantean Scorecaster: activated"
+        on offer
+                conversation
+                        `Live producers sprint across the hangar with a sealed telemetry core. "No more rehearsals," the lead caster says. "Get this to Titan and we'll pipe real scoreboards into every bridge."`
+                outfit "Atlantean Score Telemetry Packet"
+        on fail
+                outfit "Atlantean Score Telemetry Packet" -1
+        on complete
+                outfit "Atlantean Score Telemetry Packet" -1
+                outfit "Atlantean Scorecaster Relay"
+                payment 260000
+                "Atlantean XP" ++
+                event "Atlantean Scorecaster Terminal Online"
+                set "Atlantean Scorecaster: activated"
+                log "Campaigns" "Leviathan Protocol" `Activated the Atlantean scorecaster backbone by delivering the live telemetry core to Titan.`
+
+mission "Atlantean Arena: Scoreboard Broadcast"
+        name "Arena Scoreboard Broadcast"
+        description "Rush the latest arena telemetry packet to the Titan relay before the broadcast window closes."
+        job
+        repeat
+        deadline 3
+        source
+                planet "Earth"
+        destination
+                planet "Titan"
+        to offer
+                has "Atlantean Scorecaster: activated"
+                has "license: Atlantean Vanguard Rank VI"
+                random < 40
+        on offer
+                conversation
+                        `Producers flag your ship: "Scoreboard packet ready for Titan. Broadcast gate closes in hours—no slipups."`
+                outfit "Atlantean Score Telemetry Packet"
+        on fail
+                outfit "Atlantean Score Telemetry Packet" -1
+        on complete
+                outfit "Atlantean Score Telemetry Packet" -1
+                payment 320000
+                outfit "AquaToken Cache"
+                "Atlantean XP" ++
+                event "Atlantean Scorecaster Broadcast Pulse"
+                log "Campaigns" "Leviathan Protocol" `Delivered a live arena scoreboard packet to Titan before the broadcast window expired.`
+
+mission "Atlantean Arena: Ladder Uplink"
+        name "Arena Ladder Uplink"
+        description "Deliver the ladder beacon capsule to Titan so producers can bring the live ranking lattice online."
+        deadline 4
+        source
+                planet "Earth"
+        destination
+                planet "Titan"
+        to offer
+                has "Atlantean Scorecaster: activated"
+                has "license: Atlantean Vanguard Rank VI"
+                not "Atlantean Ladder: activated"
+        on offer
+                conversation
+                        `Match coordinators hurry the capsule aboard: "This isn't rehearsal," the director says. "Get that ladder beacon to Titan and we'll publish real placements across the fleet."`
+                outfit "Atlantean Ladder Relay Capsule"
+        on fail
+                outfit "Atlantean Ladder Relay Capsule" -1
+        on complete
+                outfit "Atlantean Ladder Relay Capsule" -1
+                outfit "Atlantean Ladder Beacon"
+                payment 360000
+                "Atlantean XP" ++
+                event "Atlantean Ladder Terminal Online"
+                event "Atlantean Ladder Cohort Deployment"
+                set "Atlantean Ladder: activated"
+                log "Campaigns" "Leviathan Protocol" `Activated the Atlantean ladder lattice by installing a live beacon on Titan.`
+
+mission "Atlantean Arena: Ladder Promotion Run"
+        name "Arena Ladder Promotion Run"
+        description "Escort a ranked-ladder capsule to Callisto before the promotion window closes."
+        job
+        repeat
+        deadline 3
+        source
+                planet "Earth"
+        destination
+                planet "Callisto"
+        to offer
+                has "Atlantean Ladder: activated"
+                has "license: Atlantean Vanguard Rank VI"
+                random < 45
+        on offer
+                conversation
+                        `Producers hail you mid-prep: "Promotion window live for Callisto. Take this capsule and lock standings before the queue rotates."`
+                outfit "Atlantean Ladder Relay Capsule"
+        on fail
+                outfit "Atlantean Ladder Relay Capsule" -1
+        on complete
+                outfit "Atlantean Ladder Relay Capsule" -1
+                payment 420000
+                outfit "AquaToken Cache"
+                outfit "Atlantean Ladder Access Shard"
+                "Atlantean XP" ++
+                event "Atlantean Ladder Broadcast Pulse"
+                log "Campaigns" "Leviathan Protocol" `Closed a live Atlantean ladder promotion window by delivering Callisto's capsule before the deadline.`
+
+mission "Atlantean Arena: Ladder Finals"
+        name "Arena Ladder Finals"
+        description "Carry the championship capsule back to Earth so the Sovereignty can broadcast the ladder finals."
+        deadline 5
+        source
+                planet "Titan"
+        destination
+                planet "Earth"
+        to offer
+                has "Atlantean Ladder: activated"
+                has "license: Atlantean Vanguard Rank VI"
+                "outfit: Atlantean Ladder Access Shard" >= 3
+                random < 35
+        on offer
+                conversation
+                        `The ladder director meets you on the tarmac: "Shards verified. This capsule carries the finals feed—escort it to Earth and we crown this cycle's champions live."`
+                outfit "Atlantean Ladder Relay Capsule"
+        on fail
+                outfit "Atlantean Ladder Relay Capsule" -1
+        on complete
+                outfit "Atlantean Ladder Relay Capsule" -1
+                outfit "Atlantean Ladder Access Shard" -3
+                outfit "Atlantean Ladder Champion Mark"
+                payment 760000
+                outfit "AquaToken Cache"
+                "Atlantean XP" ++
+                event "Atlantean Ladder Broadcast Pulse"
+                log "Campaigns" "Leviathan Protocol" `Broadcast the Atlantean ladder finals and received a championship mark for carrying the production feed back to Earth.`
+
+mission "Atlantean Arena: Tournament Charter"
+        name "Arena Tournament Charter"
+        description "Present your ladder champion mark to the Sovereignty so they can register a live tournament charter."
+        landing
+        source "Earth"
+        to offer
+                has "license: Atlantean Vanguard Rank VI"
+                has "Atlantean Scorecaster: activated"
+                has "Atlantean Ladder: activated"
+                has "outfit: Atlantean Ladder Champion Mark"
+                not "Atlantean Tournament: charter granted"
+        on offer
+                conversation
+                        `Producers usher you into a holochamber bathed in Solana sigils. "Champion mark verified," the presiding director nods. "Sign this charter and we spin up a live tournament circuit right now."`
+                        choice
+                                `                       "Authorize the charter."`
+                                        accept
+                                `                       "I need more time."`
+                                        decline
+        on decline
+                conversation
+                        `"The ladder window won't stay open forever," the director warns. "Return when you're ready to anchor the championship broadcast."`
+        on complete
+                conversation
+                        `You etch your signature beside the Sovereignty seal as Solana auditors confirm the handshake. "Tournament charter active," the director proclaims. "Your wing now commands the production finals."`
+                outfit "Atlantean Ladder Champion Mark" -1
+                outfit "Atlantean Tournament Charter"
+                set "Atlantean Tournament: charter granted"
+                event "Atlantean Tournament Archive Online"
+                event "Atlantean Tournament Cohort Deployment"
+                log "Campaigns" "Leviathan Protocol" `Commissioned the Atlantean tournament charter to open live championship brackets and secure dedicated escorts.`
+
+mission "Atlantean Arena: Tournament Relay"
+        name "Arena Tournament Relay"
+        description "Deliver the tournament signal packet to Titan so producers can stream the next championship bracket."
+        job
+        repeat
+        deadline 3
+        source
+                planet "Earth"
+        destination
+                planet "Titan"
+        to offer
+                has "Atlantean Tournament: charter granted"
+                has "Atlantean Scorecaster: activated"
+                random < 40
+        on offer
+                conversation
+                        `Broadcast engineers sprint alongside your crew. "Tournament bracket seed packaged," they say. "Jump this packet to Titan before the audience timer expires."`
+                outfit "Atlantean Tournament Signal Packet"
+        on fail
+                outfit "Atlantean Tournament Signal Packet" -1
+        on complete
+                outfit "Atlantean Tournament Signal Packet" -1
+                payment 480000
+                outfit "AquaToken Cache"
+                "Atlantean XP" ++
+                event "Atlantean Tournament Broadcast Pulse"
+                log "Campaigns" "Leviathan Protocol" `Delivered a live Atlantean tournament signal packet so producers could stream the latest championship bracket.`
+
+mission "Atlantean Arena: Tournament Finals"
+        name "Arena Tournament Finals"
+        description "Escort the championship trophy from Callisto to Earth to conclude the live tournament season."
+        deadline 5
+        source
+                planet "Callisto"
+        destination
+                planet "Earth"
+        to offer
+                has "Atlantean Tournament: charter granted"
+                has "Atlantean Scorecaster: activated"
+                has "Atlantean Ladder: activated"
+                random < 30
+        on offer
+                conversation
+                        `"Final bracket locked," the Callisto marshal announces, pressing a sealed crest into your hands. "Deliver this trophy to Earth so we can crown the season's champions on a live feed."`
+                outfit "Atlantean Tournament Signal Packet"
+        on fail
+                outfit "Atlantean Tournament Signal Packet" -1
+        on complete
+                outfit "Atlantean Tournament Signal Packet" -1
+                outfit "Atlantean Tournament Trophy"
+                payment 920000
+                outfit "AquaToken Cache"
+                "Atlantean XP" ++
+                event "Atlantean Tournament Broadcast Pulse"
+                log "Campaigns" "Leviathan Protocol" `Delivered the Atlantean tournament finals trophy to Earth, completing the live championship broadcast.`
+
 event "Atlantean Auction House Online"
         planet Earth
                 add outfitter "Atlantean Auction House"
@@ -3919,6 +4307,50 @@ event "Atlantean Auction House Online"
                 remove outfitter "Atlantean Auction Rotation: Beta"
                 remove outfitter "Atlantean Auction Rotation: Gamma"
         event "Atlantean Auction Rotation Beta"
+
+event "Atlantean Scorecaster Terminal Online"
+        planet Earth
+                add outfitter "Atlantean Scorecaster Terminal"
+        planet Titan
+                add outfitter "Atlantean Scorecaster Terminal"
+
+event "Atlantean Scorecaster Broadcast Pulse"
+        planet Earth
+                add outfitter "Atlantean Scorecaster Terminal"
+        planet Titan
+                add outfitter "Atlantean Scorecaster Terminal"
+
+event "Atlantean Ladder Terminal Online"
+        planet Earth
+                add outfitter "Atlantean Ladder Terminal"
+        planet Titan
+                add outfitter "Atlantean Ladder Terminal"
+        planet Callisto
+                add outfitter "Atlantean Ladder Terminal"
+
+event "Atlantean Ladder Broadcast Pulse"
+        planet Earth
+                add outfitter "Atlantean Ladder Terminal"
+        planet Titan
+                add outfitter "Atlantean Ladder Terminal"
+        planet Callisto
+                add outfitter "Atlantean Ladder Terminal"
+
+event "Atlantean Tournament Archive Online"
+        planet Earth
+                add outfitter "Atlantean Tournament Archive"
+        planet Titan
+                add outfitter "Atlantean Tournament Archive"
+        planet Callisto
+                add outfitter "Atlantean Tournament Archive"
+
+event "Atlantean Tournament Broadcast Pulse"
+        planet Earth
+                add outfitter "Atlantean Tournament Archive"
+        planet Titan
+                add outfitter "Atlantean Tournament Archive"
+        planet Callisto
+                add outfitter "Atlantean Tournament Archive"
 
 event "Atlantean Talent Matrix Online"
         planet Earth
@@ -4044,4 +4476,16 @@ event "Atlantean Nexus Cohort Deployment"
                 add fleet "Atlantean Nexus Cohort" 2400
         system Callisto
                 add fleet "Atlantean Nexus Cohort" 2000
+
+event "Atlantean Ladder Cohort Deployment"
+        system Sol
+                add fleet "Atlantean Ladder Cohort" 2400
+        system Callisto
+                add fleet "Atlantean Ladder Cohort" 2200
+
+event "Atlantean Tournament Cohort Deployment"
+        system Sol
+                add fleet "Atlantean Tournament Cohort" 2200
+        system Callisto
+                add fleet "Atlantean Tournament Cohort" 2200
 
