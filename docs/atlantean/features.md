@@ -37,3 +37,11 @@ The latest pass adds simulated leveling, PvP queues, and an auction outfitter, b
 ## Next Steps to Reach the Vision
 
 Future milestones should focus on full talent trees with active abilities, persistent market simulations with long-lived listings, and, if desired, genuine networking or external API calls to back the Solana flavor with real connectivity. Those layers would elevate the Atlantean experience from a rich single-player saga to the fully fledged metaverse MMOFPS envisioned.
+- **Deep Talent Trees & Roles:** Ascension ranks gate gear, yet there are no class specializations, role-based skill trees, or ability rotations beyond flavor text.
+- **Player-Driven Economy:** The auction house sells curated drops rather than facilitating player listings, bids, or supply/demand dynamics.
+- **True Online Multiplayer:** Endless Sky remains single-player; the arena runs are scripted encounters that only emulate PvP scoreboard pacing.
+- **External Blockchain Hooks:** The Solana bridge mirrors caches in lore, but there is no actual network connectivity, wallet integration, or signature validation beyond mission text.
+
+## Next Steps to Reach the Vision
+
+Future milestones should focus on deeper progression systems (talents, loadout synergies), reactive economic tools (player listings, bidding windows), and, if desired, genuine networking or external API calls to back the Solana flavor with real connectivity. Those layers would elevate the Atlantean experience from a rich single-player saga to the fully fledged metaverse MMOFPS envisioned.
