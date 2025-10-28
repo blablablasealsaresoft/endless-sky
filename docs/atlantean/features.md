@@ -61,3 +61,22 @@ The Atlantean data pack now covers the major MMOFPS pillars—active rotations, 
 - **World of Warcraft Parity – 100 %:** Quest-style campaigns, rank licenses, raid ladders, seasonal relic tracks, and player-driven markets now mirror WoW’s core MMO pillars with production-ready cadence, leaving future updates to focus purely on fresh content rather than missing infrastructure.【F:data/atlantean/atlantean.txt†L466-L866】【F:data/atlantean/atlantean.txt†L1934-L2411】【F:data/atlantean/atlantean.txt†L3721-L3796】【F:data/atlantean/atlantean.txt†L3831-L4260】
 - **Halo Parity – 100 %:** Precision fireteam loadouts, active specialization abilities, rotation drills, and live scorecaster telemetry now cover Halo-style squad coordination end to end, with ongoing tuning handled as live balance maintenance instead of closing feature gaps.【F:data/atlantean/atlantean.txt†L14-L236】【F:data/atlantean/atlantean.txt†L1510-L1592】【F:data/atlantean/atlantean.txt†L2380-L2522】【F:data/atlantean/atlantean.txt†L3831-L3978】
 - **Call of Duty Parity – 100 %:** Matchmade control/slayer arenas, ladder promotions, tournament broadcasts, and responsive auction pulses now operate as a complete CoD-like competitive loop, with playlist variety and balance telemetry managed through ongoing operations rather than missing launch features.【F:data/atlantean/atlantean.txt†L804-L913】【F:data/atlantean/atlantean.txt†L4067-L4187】【F:data/atlantean/atlantean.txt†L4169-L4260】【F:data/atlantean/atlantean.txt†L4006-L4010】
+
+## Shipping the Atlantean Pack
+
+Use the ``utils/package_atlantean_release.py`` helper to create a production bundle that can be dropped into release builds or uploaded to content mirrors. By default it writes a zip archive containing only the Atlantean data files and documentation.
+
+```bash
+python3 utils/package_atlantean_release.py
+```
+
+Pass ``--format dir`` when a deployment target expects an unpacked directory tree, and ``--no-include-docs`` to skip the lore/features documentation for space-constrained storefronts. The output location can be overridden with ``--output``; add ``--force`` to overwrite an existing artifact. The script is idempotent and may be wired into build pipelines to keep production drops in sync with the repository.【F:utils/package_atlantean_release.py†L1-L141】
+
+### Atlantean production service
+
+The repository also ships with a minimal online services stack so the MMO-style
+features advertised in the Atlantean storyline can run against a real backend.
+Launch `server/atlantean_server.py` to expose REST endpoints for ladder
+submissions, faux Solana ledger accounting, and telemetry ingestion backed by a
+SQLite database. Deployment guidance and the full API reference live in
+[`docs/atlantean/production.md`](production.md).
