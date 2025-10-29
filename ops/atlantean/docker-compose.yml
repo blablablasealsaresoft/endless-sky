@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  atlantean-service:
+    build:
+      context: ..
+      dockerfile: ops/atlantean/Dockerfile
+    env_file:
+      - .env
+    environment:
+      ATLANTEAN_HOST: ${ATLANTEAN_HOST:-0.0.0.0}
+      ATLANTEAN_PORT: ${ATLANTEAN_PORT:-8080}
+      ATLANTEAN_DB: ${ATLANTEAN_DB:-/data/atlantean_prod.sqlite}
+      ATLANTEAN_API_KEYS: ${ATLANTEAN_API_KEYS:-}
+      ATLANTEAN_ADMIN_KEYS: ${ATLANTEAN_ADMIN_KEYS:-}
+      ATLANTEAN_API_KEY_FILE: ${ATLANTEAN_API_KEY_FILE:-/secrets/api_keys.txt}
+      ATLANTEAN_ADMIN_KEY_FILE: ${ATLANTEAN_ADMIN_KEY_FILE:-/secrets/admin_keys.txt}
+      ATLANTEAN_REQUIRE_AUTH: ${ATLANTEAN_REQUIRE_AUTH:-yes}
+    volumes:
+      - atlantean_data:/data
+      - ./secrets:/secrets:ro
+    ports:
+      - "${ATLANTEAN_PORT:-8080}:${ATLANTEAN_PORT:-8080}"
+    restart: unless-stopped
+
+volumes:
+  atlantean_data:
